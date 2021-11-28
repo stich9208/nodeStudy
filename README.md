@@ -1,6 +1,6 @@
 # Node.JS 스터디 with youtube clone
 
-### 2021.11.28
+### 2021.11.27
 
 - 프로젝트 환경설정 (`babel`, `nodemon`... )
 - **app.listen(`port number`, `callback`)** 메서드를 사용하여 첫 서버 연결
