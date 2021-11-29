@@ -1,6 +1,8 @@
 import express from "express";
+import morgan from "morgan";
 
 const app = express();
+const logger = morgan("dev");
 
 const PORT = 4000;
 
@@ -15,18 +17,8 @@ const handleLogin = (req, res) => {
   res.send("<h1>LOGIN!</h1>");
 };
 
-//middleware
-const logMethod = (req, res, next) => {
-  console.log(`METHOD: ${req.method}`);
-  next();
-};
-const logPath = (req, res, next) => {
-  console.log(`PATH: ${req.path}`);
-  next();
-};
-
 //use middleware globally
-app.use(logMethod, logPath);
+app.use(logger);
 
 app.get("/", handleHome);
 app.get("/login", handleLogin);
