@@ -5,6 +5,7 @@ const app = express();
 const logger = morgan("dev");
 
 const PORT = 4000;
+
 //controller
 const handleListen = () => {
   console.log(`🌐 port ${PORT} is open!!`);
