@@ -1,5 +1,7 @@
+import path from "path";
+
 export const trending = (req, res) => {
-  res.send("<h1>HOME VIDEOS!</h1>");
+  res.sendFile(path.join(__dirname, "../public/main.html"));
 };
 
 export const search = (req, res) => {

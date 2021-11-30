@@ -1,4 +1,5 @@
 import express from "express";
+import path from "path";
 import morgan from "morgan";
 import globalRouter from "./routers/globalRouter";
 import userRouter from "./routers/userRouter";
@@ -9,6 +10,7 @@ const logger = morgan("dev");
 const PORT = 4000;
 //use middleware globally
 app.use(logger);
+app.use(express.static(path.join(__dirname, "public", "main.html")));
 
 app.use("/", globalRouter);
 app.use("/user", userRouter);
