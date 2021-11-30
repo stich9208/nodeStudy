@@ -10,7 +10,7 @@ const logger = morgan("dev");
 const PORT = 4000;
 //use middleware globally
 app.use(logger);
-app.use(express.static(path.join(__dirname, "public", "main.html")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use("/", globalRouter);
 app.use("/user", userRouter);

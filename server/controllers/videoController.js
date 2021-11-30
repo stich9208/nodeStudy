@@ -1,7 +1,7 @@
 import path from "path";
 
 export const trending = (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/main.html"));
+  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
 };
 
 export const search = (req, res) => {
