@@ -22,3 +22,7 @@ export const editVideo = (req, res) => {
 export const deleteVideo = (req, res) => {
   res.send(`<h1>DELETE VIDEO! ID:${req.params.id}</h1>`);
 };
+
+export const readVideos = (req, res) => {
+  res.status(200).json({ videos: ["one", "two", "three"] });
+};
