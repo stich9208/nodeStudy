@@ -24,5 +24,5 @@ export const deleteVideo = (req, res) => {
 };
 
 export const readVideos = (req, res) => {
-  res.status(200).json({ videos: ["one", "two", "three"] });
+  res.json({ videos: ["one", "two", "three"] });
 };
