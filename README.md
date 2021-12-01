@@ -26,3 +26,11 @@
 - 현재 보고 있는 강의와는 다르게 탬플릿 사용이 아니라 react로 프론트를 진행예정
 - express와 react의 연결에 대해 많은 방법을 고민했지만 결과적으로 현업에서 사용시에는 분리될 수 있도록 작성하는 것이 좋을 것 같아서 일단 프로젝트내 별도의 client폴더로 세팅
 - 기존에 express로 라우팅을 진행했던 부분을 `react-router-dom`을 사용하여 프론트에서 라우팅을 진행예정 => 이를 위해서는 서범코드에서 별도의 설정이 필요함
+
+### 2021.12.01
+
+- 화면에 필요한 component들을 `atomic design`패턴의 방식으로 설계
+- `react-router-dom`를 사용하여 front측에서 라우팅 진행 / 동시에 주소창의 url 직접 변경을 통해 이동시 반영을 위해 서버측 라우팅 작업 진행 (현재는 경로를 \*로 설정하여 모든 경로에 대하여 같은 파일(**client/build/index.html**)을 반환하도록 구현)
+- `mongodb` / `mongoose` 설치 및 `mongoose.connect` 메서드를 활용하여 서버와 mongodb 연결
+- `mongoose.Schema` 메서드를 활용하여 video model 생성
+- `http-proxy-middleware`라이브러리 활용하여 frontend와 backend간의 데이터 통신 테스트 완료!
