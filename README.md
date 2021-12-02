@@ -34,3 +34,10 @@
 - `mongodb` / `mongoose` 설치 및 `mongoose.connect` 메서드를 활용하여 서버와 mongodb 연결
 - `mongoose.Schema` 메서드를 활용하여 video model 생성
 - `http-proxy-middleware`라이브러리 활용하여 frontend와 backend간의 데이터 통신 테스트 완료!
+
+### 2021.12.02
+
+- 서버의 실행과 설정을 분기하여 **init.js** 파일 생성
+- videoController내의 db와 통신하는 함수를 `async` `await`을 통해 비동기 처리
+- post 요청을 통해 front에서 입력 받은 video 데이터를 mongoose의 `create` 메서드를 통해 db내 저장
+- db에 저장된 아이템을 home 화면에 표시, detail 페이지내에서 아이템의 id값을 통해 db에 저장되어 있는 아이템에 접근 후 해당 아이템의 정보 표시 (`findById`)
