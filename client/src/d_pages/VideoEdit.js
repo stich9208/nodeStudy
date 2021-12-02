@@ -1,7 +1,10 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { API_URL } from "../config";
 
 const VideoEdit = () => {
-  return <div>VideoEdit</div>;
+  const params = useParams();
+  return <div></div>;
 };
 
 export default VideoEdit;

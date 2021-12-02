@@ -34,6 +34,7 @@ export const detailVideo = async (req, res) => {
     return res.status(404).send({ message: "fail" });
   }
 };
+
 export const editVideo = (req, res) => {
   res.send(`<h1>EDIT VIDEO ID:${req.params.id}!</h1>`);
 };
