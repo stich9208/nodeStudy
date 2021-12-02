@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Nav from "../src/b_organisms/Nav";
-import Home from "../src/d_pages/Home";
-import Join from "../src/d_pages/Join";
-import Login from "../src/d_pages/Login";
-import UserDetail from "../src/d_pages/UserDetail";
-import UserEdit from "../src/d_pages/UserEdit";
-import VideoDetail from "../src/d_pages/VideoDetail";
-import VideoEdit from "../src/d_pages/VideoEdit";
-import VideoUpload from "../src/d_pages/VideoUpload";
+import Nav from "./b_organisms/Nav";
+import Home from "./d_pages/Home";
+import Join from "./d_pages/Join";
+import Login from "./d_pages/Login";
+import UserDetail from "./d_pages/UserDetail";
+import UserEdit from "./d_pages/UserEdit";
+import VideoDetail from "./d_pages/VideoDetail";
+import VideoEdit from "./d_pages/VideoEdit";
+import VideoUpload from "./d_pages/VideoUpload";
 
 const RootRouter = () => {
   return (

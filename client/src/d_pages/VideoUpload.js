@@ -16,9 +16,14 @@ const VideoUpload = () => {
       .then((res) => {
         if (res.message === "success") {
           navigate("/");
+        } else {
+          throw new Error("");
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        alert("can not upload file!");
+        console.log(err);
+      });
   };
 
   const inputOnChange = (e) => {

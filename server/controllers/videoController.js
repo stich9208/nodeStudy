@@ -11,22 +11,28 @@ export const search = (req, res) => {
 
 export const uploadVideo = async (req, res) => {
   const { title, description, hashtags } = req.body;
-  const video = new Video({
-    title,
-    description,
-    createdAt: new Date(),
-    hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
-    meta: {
-      views: 0,
-      rating: 0,
-    },
-  });
-  const createdVideo = await video.save();
+  try {
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
+    });
+  } catch (err) {
+    console.log("create in db error", err);
+    return res.status(404).send({ message: "failed" });
+  }
   return res.send({ message: "success" });
 };
 
-export const detailVideo = (req, res) => {
-  res.send(`<h1>DETAIL VIDEO ID:${req.params.id}!</h1>`);
+export const detailVideo = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const video = await Video.findById(id);
+    return res.send({ video });
+  } catch (err) {
+    console.log("detail video err", err);
+    return res.status(404).send({ message: "fail" });
+  }
 };
 export const editVideo = (req, res) => {
   res.send(`<h1>EDIT VIDEO ID:${req.params.id}!</h1>`);

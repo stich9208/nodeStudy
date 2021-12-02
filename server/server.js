@@ -9,10 +9,10 @@ const app = express();
 const logger = morgan("dev");
 //use middleware globally
 
-app.use(express.json());
-app.use(logger);
 app.use(express.static(path.join(__dirname, "../client/build")));
 
+app.use(express.json());
+app.use(logger);
 app.use("/api", videoRouter);
 app.use("/", globalRouter);
 
