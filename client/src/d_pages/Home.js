@@ -12,7 +12,6 @@ const Home = () => {
       .catch((err) => console.log("fetch error!", err));
   }, []);
 
-  console.log(videos);
   return (
     <div>
       <button onClick={() => navigate("/video/upload")}>upload</button>
@@ -21,6 +20,7 @@ const Home = () => {
           return (
             <li key={video._id} onClick={() => navigate(`/video/${video._id}`)}>
               <h3>{video.title}</h3>
+              <h5>{new Date(video.createdAt).toUTCString()}</h5>
             </li>
           );
         })}

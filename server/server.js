@@ -7,8 +7,8 @@ import videoRouter from "./routers/videoRouter";
 
 const app = express();
 const logger = morgan("dev");
-//use middleware globally
 
+//use middleware globally
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use(express.json());

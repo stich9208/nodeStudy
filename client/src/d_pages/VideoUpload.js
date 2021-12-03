@@ -14,11 +14,10 @@ const VideoUpload = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.message === "success") {
-          navigate("/");
-        } else {
+        if (res.message !== "success") {
           throw new Error("");
         }
+        navigate("/");
       })
       .catch((err) => {
         alert("can not upload file!");

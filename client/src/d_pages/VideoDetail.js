@@ -40,7 +40,7 @@ const VideoDetail = () => {
         })
           .then((res) => res.json())
           .then((res) => {
-            if (res.message === "fail") {
+            if (res.message !== "success") {
               throw new Error("edit fail!");
             } else {
               alert("edit succcess!");
@@ -62,7 +62,7 @@ const VideoDetail = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.message === "fail") {
+        if (res.message !== "success") {
           throw new Error("deleted fail!");
         }
         alert("deleted success!");

@@ -1,4 +1,3 @@
-import path from "path";
 import Video from "../models/Video";
 
 //upload video
@@ -20,7 +19,7 @@ export const uploadVideo = async (req, res) => {
 //read video list
 export const readVideo = async (req, res) => {
   try {
-    const videos = await Video.find({});
+    const videos = await Video.find({}).sort({ createdAt: "desc" });
     return res.json({ videos });
   } catch (err) {
     return res.sendStatus(404).send({ message: "not found videos", err });
@@ -67,6 +66,19 @@ export const deleteVideo = async (req, res) => {
   }
 };
 
-export const search = (req, res) => {
-  res.send("<h1>SEARCH!</h1>");
+export const searchVideo = async (req, res) => {
+  const { keyword } = req.query;
+  let videos = [];
+  if (keyword) {
+    try {
+      videos = await Video.find({
+        title: {
+          $regex: new RegExp(keyword, "i"),
+        },
+      });
+      return res.send({ message: "success", videos });
+    } catch (err) {
+      console.log(err);
+    }
+  }
 };
