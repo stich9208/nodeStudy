@@ -1,14 +1,7 @@
 import path from "path";
 import Video from "../models/Video";
 
-export const trending = (req, res) => {
-  res.sendFile(path.join(__dirname, "../../client/build/index.html"));
-};
-
-export const search = (req, res) => {
-  res.send("<h1>SEARCH!</h1>");
-};
-
+//upload video
 export const uploadVideo = async (req, res) => {
   const { title, description, hashtags } = req.body;
   try {
@@ -24,6 +17,17 @@ export const uploadVideo = async (req, res) => {
   return res.send({ message: "success" });
 };
 
+//read video list
+export const readVideo = async (req, res) => {
+  try {
+    const videos = await Video.find({});
+    return res.json({ videos });
+  } catch (err) {
+    return res.sendStatus(404).send({ message: "not found videos", err });
+  }
+};
+
+//read detail info video
 export const detailVideo = async (req, res) => {
   const { id } = req.params;
   try {
@@ -35,19 +39,22 @@ export const detailVideo = async (req, res) => {
   }
 };
 
-export const editVideo = (req, res) => {
-  res.send(`<h1>EDIT VIDEO ID:${req.params.id}!</h1>`);
+//edit video
+export const editVideo = async (req, res) => {
+  const { _id, title, description } = req.body;
+  try {
+    const video = await Video.findByIdAndUpdate(_id, { title, description });
+    return res.send({ message: "success", video });
+  } catch (err) {
+    console.log("video edit err", err);
+    return res.status(404).send({ message: "fail" });
+  }
 };
 
 export const deleteVideo = (req, res) => {
   res.send(`<h1>DELETE VIDEO! ID:${req.params.id}</h1>`);
 };
 
-export const readVideo = async (req, res) => {
-  try {
-    const videos = await Video.find({});
-    return res.json({ videos });
-  } catch (err) {
-    return res.sendStatus(404).send({ message: "not found videos", err });
-  }
+export const search = (req, res) => {
+  res.send("<h1>SEARCH!</h1>");
 };
