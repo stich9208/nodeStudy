@@ -14,8 +14,6 @@ const VideoDetail = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  const videoEdit = () => {};
-
   return (
     video && (
       <div style={{ display: "flex", flexDirection: "column" }}>
