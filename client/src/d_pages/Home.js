@@ -11,6 +11,8 @@ const Home = () => {
       .then((res) => setVideos(res.videos))
       .catch((err) => console.log("fetch error!", err));
   }, []);
+
+  console.log(videos);
   return (
     <div>
       <button onClick={() => navigate("/video/upload")}>upload</button>

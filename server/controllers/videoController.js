@@ -41,9 +41,13 @@ export const detailVideo = async (req, res) => {
 
 //edit video
 export const editVideo = async (req, res) => {
-  const { _id, title, description } = req.body;
+  const { _id, title, description, hashtags } = req.body;
   try {
-    const video = await Video.findByIdAndUpdate(_id, { title, description });
+    const video = await Video.findByIdAndUpdate(_id, {
+      title,
+      description,
+      hashtags,
+    });
     return res.send({ message: "success", video });
   } catch (err) {
     console.log("video edit err", err);

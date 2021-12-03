@@ -20,25 +20,32 @@ const VideoDetail = () => {
   }, [video]);
 
   const onChangeFunc = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    if (name === "hashtags") {
+      value = value
+        .split(",")
+        .map((tag) => (tag.startsWith("#") ? tag.trim() : `#${tag.trim()}`));
+    }
     setEditVideo({ ...editVideo, [name]: value });
   };
 
   const onSave = () => {
-    fetch(`${API_URL}/video/edit/${params.id}`, {
-      method: "POST",
-      body: JSON.stringify(editVideo),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.message === "fail") {
-          throw new Error("edit fail!");
-        } else {
-          alert("edit succcess!");
-        }
-      })
-      .catch((err) => console.log(err));
+    video === editVideo
+      ? setIsEdit(false)
+      : fetch(`${API_URL}/video/edit/${params.id}`, {
+          method: "POST",
+          body: JSON.stringify(editVideo),
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            if (res.message === "fail") {
+              throw new Error("edit fail!");
+            } else {
+              alert("edit succcess!");
+            }
+          })
+          .catch((err) => console.log(err));
     setVideo(editVideo);
     setIsEdit(false);
   };
@@ -81,6 +88,17 @@ const VideoDetail = () => {
           <div>created at : </div>
           <div>{video.createdAt}</div>
         </div>
+        {isEdit ? (
+          <input
+            type="text"
+            name="hashtags"
+            value={editVideo.hashtags}
+            onChange={onChangeFunc}
+          />
+        ) : (
+          <div>{video.hashtags.map((tag) => tag + " ")}</div>
+        )}
+
         {isEdit ? (
           <>
             <button onClick={onSave}>save</button>
