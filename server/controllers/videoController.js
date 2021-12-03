@@ -11,8 +11,8 @@ export const uploadVideo = async (req, res) => {
       hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
     });
   } catch (err) {
-    console.log("create in db error", err);
-    return res.status(404).send({ message: "failed" });
+    console.log("upload video", err);
+    return res.status(404).send({ message: "can`t upload video" });
   }
   return res.send({ message: "success" });
 };
@@ -34,8 +34,8 @@ export const detailVideo = async (req, res) => {
     const video = await Video.findById(id);
     return res.send({ video });
   } catch (err) {
-    console.log("detail video err", err);
-    return res.status(404).send({ message: "fail" });
+    console.log("detail video", err);
+    return res.status(404).send({ message: "can`t get video" });
   }
 };
 
@@ -50,13 +50,21 @@ export const editVideo = async (req, res) => {
     });
     return res.send({ message: "success", video });
   } catch (err) {
-    console.log("video edit err", err);
-    return res.status(404).send({ message: "fail" });
+    console.log("edit video", err);
+    return res.status(404).send({ message: "failed to edit video" });
   }
 };
 
-export const deleteVideo = (req, res) => {
-  res.send(`<h1>DELETE VIDEO! ID:${req.params.id}</h1>`);
+//delete video
+export const deleteVideo = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const deletedVideo = await Video.findByIdAndDelete(id);
+    return res.send({ message: "success", deletedVideo });
+  } catch (err) {
+    console.log("delete video", err);
+    return res.status(404).send({ message: "failed to delete video" });
+  }
 };
 
 export const search = (req, res) => {

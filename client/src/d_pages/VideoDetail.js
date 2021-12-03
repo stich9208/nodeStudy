@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 
 const VideoDetail = () => {
   const params = useParams();
+  const navigate = useNavigate();
   const [video, setVideo] = useState("");
   const [editVideo, setEditVideo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
@@ -33,7 +34,7 @@ const VideoDetail = () => {
     video === editVideo
       ? setIsEdit(false)
       : fetch(`${API_URL}/video/edit/${params.id}`, {
-          method: "POST",
+          method: "PUT",
           body: JSON.stringify(editVideo),
           headers: { "Content-Type": "application/json" },
         })
@@ -53,6 +54,21 @@ const VideoDetail = () => {
   const onCancel = () => {
     setEditVideo(video);
     setIsEdit(false);
+  };
+
+  const onDelete = () => {
+    fetch(`${API_URL}/video/${params.id}/delete`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === "fail") {
+          throw new Error("deleted fail!");
+        }
+        alert("deleted success!");
+        navigate("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -105,7 +121,10 @@ const VideoDetail = () => {
             <button onClick={onCancel}>cancel</button>
           </>
         ) : (
-          <button onClick={() => setIsEdit(true)}>Edit video</button>
+          <>
+            <button onClick={() => setIsEdit(true)}>Edit video</button>
+            <button onClick={onDelete}>Delete video</button>
+          </>
         )}
       </div>
     )
