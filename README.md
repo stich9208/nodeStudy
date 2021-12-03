@@ -41,3 +41,15 @@
 - videoController내의 db와 통신하는 함수를 `async` `await`을 통해 비동기 처리
 - post 요청을 통해 front에서 입력 받은 video 데이터를 mongoose의 `create` 메서드를 통해 db내 저장
 - db에 저장된 아이템을 home 화면에 표시, detail 페이지내에서 아이템의 id값을 통해 db에 저장되어 있는 아이템에 접근 후 해당 아이템의 정보 표시 (`findById`)
+
+### 2021.12.03
+
+- client 서버 실행시 계속해서 발생하는 오류 해결 => setupProxy.js파일 내 import 구문을 사용한 것이 이유, 왜 import구문을 사용하면 오류가 나는지는 현재 알아보는 중
+- video edit 기능 구현
+- 수정한 정보를 **post** 메서드로 서버에 전달, 서버에서 **req.body**를 통해 전달 받은 정보에 접근, 이후 해당 아이템의 id값을 통해 mongoose의 `findByIdAndUpdate`메서드를 사용하여 해당 아이템의 정보 업데이트
+- video delete 기능 구현
+- **delete** 메서드를 통해 삭제되는 아이템의 정보 전달, 서버에서 받은 아이템의 id값을 통해 역시 mongoose의 `findByIdAndDelete`실행 (mongoose에는 `findByIdAndDelete`와 `findByIdAndRemove`메서드가 존재한다. 두가지 모두 하는일은 비슷하나, 두 메서드가 mongodb에서 서로 다른 메서드를 호출한다.
+  공식 문서에서는 특별한 이유가 아니면 `findByIdAndDelete`을 사용하도록 권장!)
+- 검색 기능 구현
+- react-router-dom v6에서의 `useSearchParams`훅을 사용하여 query string에 접근, 이후 query stirng을 서버로 전달하여 해당 string과 일치하는 아이템을 반환하도록 구현
+- mongoose의 `find`메서드에서 **$regExp**를 사용하여 title 필드에 옵션을 주었다.
