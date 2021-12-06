@@ -1,9 +1,22 @@
+import User from "../models/User";
+
 export const home = (req, res) => {
   res.send("<h1>HOME!</h1>");
 };
 
-export const join = (req, res) => {
-  res.send("<h1>JOIN!</h1>");
+export const join = async (req, res) => {
+  const { email, username, password } = req.body;
+  try {
+    await User.create({
+      email,
+      username,
+      password,
+    });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).send({ message: "can`t create user" });
+  }
+  return res.status(200).send({ message: "success" });
 };
 
 export const detail = (req, res) => {

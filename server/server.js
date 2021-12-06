@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use(express.json());
 app.use(logger);
-app.use("/api", videoRouter);
+app.use("/api", videoRouter, userRouter);
 app.use("/", globalRouter);
 
 export default app;
