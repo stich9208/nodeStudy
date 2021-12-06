@@ -5,18 +5,20 @@ export const home = (req, res) => {
 };
 
 export const join = async (req, res) => {
+  console.log(req.body);
+  return res.end();
   const { email, username, password } = req.body;
-  try {
-    await User.create({
-      email,
-      username,
-      password,
-    });
-  } catch (err) {
-    console.log(err);
-    return res.status(404).send({ message: "can`t create user" });
-  }
-  return res.status(200).send({ message: "success" });
+  // try {
+  //   await User.create({
+  //     email,
+  //     username,
+  //     password,
+  //   });
+  // } catch (err) {
+  //   console.log(err);
+  //   return res.status(404).send({ message: "can`t create user" });
+  // }
+  // return res.status(200).send({ message: "success" });
 };
 
 export const detail = (req, res) => {

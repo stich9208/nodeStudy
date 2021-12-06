@@ -56,7 +56,7 @@ const Join = () => {
   };
 
   return (
-    <form style={{ marginTop: "50px" }}>
+    <form style={{ marginTop: "50px" }} method="post">
       <div style={{ display: "flex" }}>
         <div>email : </div>
         <input type="email" name="email" onChange={inputChange} />

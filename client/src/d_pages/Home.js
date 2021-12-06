@@ -3,15 +3,15 @@ import { useNavigate } from "react-router";
 import jwt from "jsonwebtoken";
 
 const Home = () => {
-  const JWT = jwt.sign({ foo: "bar" }, "secret", { expiresIn: "5s" });
+  // const JWT = jwt.sign({ foo: "bar" }, "secret", { expiresIn: "5s" });
 
-  setTimeout(() => {
-    try {
-      console.log(jwt.verify(JWT, "secret"));
-    } catch (err) {
-      console.log(err);
-    }
-  }, 4000);
+  // setTimeout(() => {
+  //   try {
+  //     console.log(jwt.verify(JWT, "secret"));
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }, 4000);
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);
 
