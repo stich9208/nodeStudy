@@ -66,6 +66,7 @@ export const deleteVideo = async (req, res) => {
   }
 };
 
+//search video
 export const searchVideo = async (req, res) => {
   const { keyword } = req.query;
   let videos = [];
