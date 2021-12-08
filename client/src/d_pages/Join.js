@@ -47,11 +47,12 @@ const Join = () => {
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => res.json())
-        .then((res) =>
+        .then((res) => {
+          console.log(res);
           res.message === "success"
-            ? (console.log(res), navigate("/login"))
-            : new Error(res.message)
-        )
+            ? navigate("/login")
+            : new Error(res.message);
+        })
         .catch((err) => console.log(err));
     }
   };

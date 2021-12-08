@@ -13,8 +13,16 @@ export const join = async (req, res) => {
       password,
     });
   } catch (err) {
-    console.log(err);
-    return res.status(404).send({ message: "can`t create user" });
+    if (err.code === 11000) {
+      const dupKey = Object.keys(err.keyPattern)[0];
+      return res.status(404).send({
+        message: "duplicated",
+        dupKey,
+      });
+    }
+    return res.status(404).send({
+      message: "can`t create user",
+    });
   }
   return res.status(200).send({ message: "success" });
 };
