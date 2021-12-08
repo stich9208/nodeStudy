@@ -48,12 +48,16 @@ const Join = () => {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
-          res.message === "success"
-            ? navigate("/login")
-            : new Error(res.message);
+          if (res.message === "success") {
+            navigate("/login");
+          } else {
+            if (res.message === "duplicated") {
+              throw new Error(`duplicated ${res.dupKey}!`);
+            }
+            throw new Error("server error");
+          }
         })
-        .catch((err) => console.log(err));
+        .catch((err) => alert(err.message));
     }
   };
 
