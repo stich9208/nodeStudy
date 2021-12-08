@@ -6,35 +6,13 @@ const Join = () => {
   const navigate = useNavigate();
   const emailRegex =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
   const [joinInfo, setJoinInfo] = useState({
     email: "",
     username: "",
     password: "",
     password2: "",
   });
-
-  const inputChange = (e) => {
-    const { name, value } = e.target;
-    setJoinInfo({ ...joinInfo, [name]: value });
-  };
-
-  const joinBtnClick = (e) => {
-    e.preventDefault();
-    if (joinInfoValidation()) {
-      fetch(`${API_URL}/join`, {
-        method: "POST",
-        body: JSON.stringify(joinInfo),
-        headers: { "Content-Type": "application/json" },
-      })
-        .then((res) => res.json())
-        .then((res) =>
-          res.message === "success"
-            ? navigate("/login")
-            : new Error(res.message)
-        )
-        .catch((err) => console.log(err));
-    }
-  };
 
   const joinInfoValidation = () => {
     if (joinInfo.email === "") {
@@ -53,6 +31,29 @@ const Join = () => {
       return alert("password confirm is wrong!");
     }
     return true;
+  };
+
+  const inputChange = (e) => {
+    const { name, value } = e.target;
+    setJoinInfo({ ...joinInfo, [name]: value });
+  };
+
+  const joinBtnClick = (e) => {
+    e.preventDefault();
+    if (joinInfoValidation()) {
+      fetch(`${API_URL}/join`, {
+        method: "POST",
+        body: JSON.stringify(joinInfo),
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => res.json())
+        .then((res) =>
+          res.message === "success"
+            ? (console.log(res), navigate("/login"))
+            : new Error(res.message)
+        )
+        .catch((err) => console.log(err));
+    }
   };
 
   return (

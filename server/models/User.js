@@ -11,7 +11,17 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: true, minlength: 5 },
 });
 
-userSchema.statics.passwordHash = (password) => {};
+const hashPassword = async (password) => {
+  return await bcrypt.hash(password, 5);
+};
+
+userSchema.pre("save", async function () {
+  try {
+    this.password = await hashPassword(this.password);
+  } catch (err) {
+    throw new Error(err);
+  }
+});
 
 const User = mongoose.model("User", userSchema);
 
