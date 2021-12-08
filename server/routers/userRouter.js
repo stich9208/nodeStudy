@@ -5,11 +5,13 @@ import {
   logout,
   remove,
   join,
+  login,
 } from "../controllers/userController";
 
 const userRouter = express.Router();
 
 userRouter.post("/join", join);
+userRouter.post("/login", login);
 userRouter.get("/edit", edit);
 userRouter.get("/logout", logout);
 userRouter.get("/remove", remove);
