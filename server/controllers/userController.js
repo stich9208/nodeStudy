@@ -35,19 +35,16 @@ export const login = async (req, res) => {
     if (!user.comparePassword(password)) {
       res.send({ message: "please check your password!" });
     }
-    user.generateAccessToken((err, userWithToken) => {
-      if (err) throw new Error(err);
-      userWithToken.generateRefreshToken((err, user) => {
-        if (err) throw new Error(err);
-        res
-          .cookie("webToken", {
-            token: user.token,
-            refreshToken: user.refreshToken,
-          })
-          .status(200)
-          .send({ message: "success", user });
-      });
-    });
+    const token = await user.generateAccessToken();
+    const refreshToken = await user.generateRefreshToken();
+    res
+      .cookie("webToken", {
+        token,
+        refreshToken,
+      })
+      .status(200)
+      .send({ message: "success", user });
+    res.end();
   } catch (err) {
     console.log("login err", err);
     res.status(404).send({ message: "fail", err });
@@ -68,4 +65,8 @@ export const logout = (req, res) => {
 
 export const remove = (req, res) => {
   res.send("<h1>REMOVE USER!</h1>");
+};
+
+export const auth = (req, res) => {
+  res.send({ message: "auth check!" });
 };

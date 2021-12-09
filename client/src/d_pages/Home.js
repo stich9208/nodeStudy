@@ -1,9 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { API_URL } from "../config";
+// import jwt from "jsonwebtoken";
 
 const Home = () => {
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);
+
+  // const JWT = jwt.sign({ foo: "bar" }, "secret", {
+  //   expiresIn: "3s",
+  //   issuer: "lcms",
+  //   subject: "user_data",
+  // });
+
+  // setTimeout(() => {
+  //   const decoded = jwt.verify(JWT, "secret");
+  //   console.log(decoded);
+  // }, 2000);
 
   useEffect(() => {
     fetch("http://localhost:3000/api/videos")
@@ -12,9 +25,25 @@ const Home = () => {
       .catch((err) => console.log("fetch error!", err));
   }, []);
 
+  const clickUpload = () => {
+    fetch(`${API_URL}/auth`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === "auth check!") {
+          return navigate("/video/upload");
+        }
+        if (res.message === "login") {
+          alert("login please!");
+          return navigate("/login");
+        }
+        console.log("none");
+      })
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
-      <button onClick={() => navigate("/video/upload")}>upload</button>
+      <button onClick={clickUpload}>upload</button>
       <ul>
         {videos.map((video) => {
           return (

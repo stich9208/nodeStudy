@@ -6,7 +6,9 @@ import {
   remove,
   join,
   login,
+  auth,
 } from "../controllers/userController";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 const userRouter = express.Router();
 
@@ -16,5 +18,6 @@ userRouter.get("/edit", edit);
 userRouter.get("/logout", logout);
 userRouter.get("/remove", remove);
 userRouter.get("/:id(\\d+)", detail);
+userRouter.get("/auth", authMiddleware, auth);
 
 export default userRouter;
