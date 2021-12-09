@@ -19,6 +19,7 @@ const RootRouter = () => {
           <Route path="/search" element={<SearchList />} />
           <Route path="join" element={<Join />} />
           <Route path="login" element={<Login />} />
+
           <Route path="user" element={<UserDetail />} />
           <Route path="user/edit" element={<UserEdit />} />
           <Route path="video" element={<Home />} />

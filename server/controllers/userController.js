@@ -68,5 +68,5 @@ export const remove = (req, res) => {
 };
 
 export const auth = (req, res) => {
-  res.send({ message: "auth check!" });
+  res.send({ message: "success" });
 };

@@ -14,8 +14,12 @@ const videoRouter = express.Router();
 videoRouter.get("/videos", readVideo);
 videoRouter.post("/upload", authMiddleware, uploadVideo);
 videoRouter.get("/video/:id([0-9a-f]{24})", detailVideo);
-videoRouter.put("/video/edit/:id([0-9a-f]{24})", editVideo);
-videoRouter.delete("/video/:id([0-9a-f]{24})/delete", deleteVideo);
+videoRouter.put("/video/edit/:id([0-9a-f]{24})", authMiddleware, editVideo);
+videoRouter.delete(
+  "/video/:id([0-9a-f]{24})/delete",
+  authMiddleware,
+  deleteVideo
+);
 videoRouter.get("/search", searchVideo);
 
 export default videoRouter;

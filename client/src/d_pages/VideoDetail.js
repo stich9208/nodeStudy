@@ -20,6 +20,8 @@ const VideoDetail = () => {
     setEditVideo(video);
   }, [video]);
 
+  const checkAuth = () => {};
+
   const onChangeFunc = (e) => {
     let { name, value } = e.target;
     if (name === "hashtags") {
@@ -28,6 +30,21 @@ const VideoDetail = () => {
         .map((tag) => (tag.startsWith("#") ? tag.trim() : `#${tag.trim()}`));
     }
     setEditVideo({ ...editVideo, [name]: value });
+  };
+
+  const onEdit = () => {
+    fetch(`${API_URL}/auth`)
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.message === "success") {
+          setIsEdit(true);
+        }
+        if (res.message === "login") {
+          alert("login please!");
+          return navigate("/login");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const onSave = () => {
@@ -40,15 +57,18 @@ const VideoDetail = () => {
         })
           .then((res) => res.json())
           .then((res) => {
-            if (res.message !== "success") {
-              throw new Error("edit fail!");
-            } else {
+            if (res.message === "success") {
               alert("edit succcess!");
+              setVideo(editVideo);
+              setIsEdit(false);
             }
+            if (res.message === "login") {
+              alert("login please!");
+              return navigate("/login");
+            }
+            throw new Error("edit fail!");
           })
           .catch((err) => console.log(err));
-    setVideo(editVideo);
-    setIsEdit(false);
   };
 
   const onCancel = () => {
@@ -62,11 +82,15 @@ const VideoDetail = () => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.message !== "success") {
-          throw new Error("deleted fail!");
+        if (res.message === "success") {
+          alert("deleted success!");
+          return navigate("/");
         }
-        alert("deleted success!");
-        navigate("/");
+        if (res.message === "login") {
+          alert("login please!");
+          return navigate("/login");
+        }
+        throw new Error("deleted fail!");
       })
       .catch((err) => console.log(err));
   };
@@ -122,7 +146,7 @@ const VideoDetail = () => {
           </>
         ) : (
           <>
-            <button onClick={() => setIsEdit(true)}>Edit video</button>
+            <button onClick={onEdit}>Edit video</button>
             <button onClick={onDelete}>Delete video</button>
           </>
         )}

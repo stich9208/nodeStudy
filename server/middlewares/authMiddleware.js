@@ -2,7 +2,8 @@ import jwt from "jsonwebtoken";
 import User from "../models/User";
 
 export const authMiddleware = async (req, res, next) => {
-  let { token, refreshToken } = req.cookies.webToken;
+  console.log("in middleware!");
+  const { token, refreshToken } = req.cookies.webToken;
   try {
     const decoded = jwt.verify(token, "secret");
     const { _id } = decoded;
@@ -21,7 +22,6 @@ export const authMiddleware = async (req, res, next) => {
           token: newToken,
           refreshToken,
         });
-        req.cookies.webToken.token = newToken;
         return next();
       } catch (err) {
         if (err.message === "jwt expired") {
