@@ -2,7 +2,9 @@ import jwt from "jsonwebtoken";
 import User from "../models/User";
 
 export const authMiddleware = async (req, res, next) => {
-  console.log("in middleware!");
+  if (!req.cookies.webToken) {
+    return res.status(401).send({ message: "login" });
+  }
   const { token, refreshToken } = req.cookies.webToken;
   try {
     const decoded = jwt.verify(token, "secret");
