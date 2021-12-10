@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { API_URL } from "../config";
 
 const VideoDetail = () => {
+  //login 되어 있지 않을 경우 모든 버튼 비활성화
+
   const params = useParams();
   const navigate = useNavigate();
   const [video, setVideo] = useState("");
@@ -19,8 +21,6 @@ const VideoDetail = () => {
   useEffect(() => {
     setEditVideo(video);
   }, [video]);
-
-  const checkAuth = () => {};
 
   const onChangeFunc = (e) => {
     let { name, value } = e.target;

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Cookies } from "react-cookie";
 import Nav from "./b_organisms/Nav";
 import Home from "./d_pages/Home";
 import Join from "./d_pages/Join";
@@ -12,6 +13,9 @@ import VideoUpload from "./d_pages/VideoUpload";
 import NotFound from "./d_pages/NotFound";
 
 const RootRouter = () => {
+  const cookies = new Cookies();
+  const [webToken, setWebToken] = useState(cookies.get("webToken"));
+
   return (
     <BrowserRouter>
       <Routes>
