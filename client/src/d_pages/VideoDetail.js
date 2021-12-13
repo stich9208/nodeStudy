@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Cookies } from "react-cookie";
 import { API_URL } from "../config";
 
 const VideoDetail = () => {
   //login 되어 있지 않을 경우 모든 버튼 비활성화
 
+  const cookies = new Cookies();
   const params = useParams();
   const navigate = useNavigate();
   const [video, setVideo] = useState("");
@@ -40,6 +42,7 @@ const VideoDetail = () => {
           setIsEdit(true);
         }
         if (res.message === "login") {
+          cookies.remove("webToken");
           alert("login please!");
           return navigate("/login");
         }
@@ -63,6 +66,7 @@ const VideoDetail = () => {
               setIsEdit(false);
             }
             if (res.message === "login") {
+              cookies.remove("webToken");
               alert("login please!");
               return navigate("/login");
             }
@@ -87,6 +91,7 @@ const VideoDetail = () => {
           return navigate("/");
         }
         if (res.message === "login") {
+          cookies.remove("webToken");
           alert("login please!");
           return navigate("/login");
         }

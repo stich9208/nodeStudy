@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Cookies } from "react-cookie";
+import PublicRouter from "./routers/PublicRouter";
+import PrivateRouter from "./routers/PrivateRouter";
 import Nav from "./b_organisms/Nav";
 import Home from "./d_pages/Home";
 import Join from "./d_pages/Join";
@@ -26,6 +28,7 @@ const RootRouter = () => {
           <Route path="search" element={<SearchList />} />
           <Route path="video/:id" element={<VideoDetail />} />
 
+          {/* <Route path="/" element={<PrivateRouter />}> */}
           {/* should be not logged in */}
           <Route path="join" element={<Join />} />
           <Route path="login" element={<Login />} />
@@ -34,6 +37,7 @@ const RootRouter = () => {
           <Route path="user" element={<UserDetail />} />
           <Route path="user/edit" element={<UserEdit />} />
           <Route path="video/upload" element={<VideoUpload />} />
+          {/* </Route> */}
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

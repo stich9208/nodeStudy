@@ -1,7 +1,8 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
-const PublicRouter = ({ element, path, isLogin }) => {
-  return <div></div>;
+const PublicRouter = () => {
+  return <Outlet />;
 };
 
 export default PublicRouter;

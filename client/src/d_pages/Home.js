@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { Cookies } from "react-cookie";
 import { API_URL } from "../config";
 
 const Home = () => {
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);
 
@@ -21,6 +23,7 @@ const Home = () => {
           return navigate("/video/upload");
         }
         if (res.message === "login") {
+          cookies.remove("webToken");
           alert("login please!");
           return navigate("/login");
         }
