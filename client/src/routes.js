@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Cookies } from "react-cookie";
+
 import PublicRouter from "./routers/PublicRouter";
 import PrivateRouter from "./routers/PrivateRouter";
 import Nav from "./b_organisms/Nav";
@@ -16,7 +17,6 @@ import NotFound from "./d_pages/NotFound";
 
 const RootRouter = () => {
   const cookies = new Cookies();
-  const [webToken, setWebToken] = useState(cookies.get("webToken"));
 
   return (
     <BrowserRouter>
@@ -28,16 +28,16 @@ const RootRouter = () => {
           <Route path="search" element={<SearchList />} />
           <Route path="video/:id" element={<VideoDetail />} />
 
-          {/* <Route path="/" element={<PrivateRouter />}> */}
           {/* should be not logged in */}
           <Route path="join" element={<Join />} />
           <Route path="login" element={<Login />} />
 
           {/* should be logged in */}
-          <Route path="user" element={<UserDetail />} />
-          <Route path="user/edit" element={<UserEdit />} />
-          <Route path="video/upload" element={<VideoUpload />} />
-          {/* </Route> */}
+          <Route path="/" element={<PrivateRouter />}>
+            <Route path="user" element={<UserDetail />} />
+            <Route path="user/edit" element={<UserEdit />} />
+            <Route path="video/upload" element={<VideoUpload />} />
+          </Route>
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
