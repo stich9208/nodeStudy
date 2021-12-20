@@ -9,7 +9,7 @@ const Home = () => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/videos")
+    fetch(`${API_URL}/videos`)
       .then((res) => res.json())
       .then((res) => setVideos(res.videos))
       .catch((err) => console.log("fetch error!", err));
@@ -30,8 +30,9 @@ const Home = () => {
   //     })
   //     .catch((err) => console.log(err));
   // };
+
   const clickUpload = () => {
-    return navigate("/video/upload");
+    return navigate("video/upload");
   };
 
   return (

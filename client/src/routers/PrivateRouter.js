@@ -1,11 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { loginState } from "../recoil/atoms";
+import { checkAuth } from "../util/checkAuth";
 
 const PrivateRouter = () => {
-  const [isLogin, setIsLogin] = useRecoilState(loginState);
-  return isLogin ? <Outlet /> : <Navigate to="/Login" />;
+  console.log("checkAuth", checkAuth());
+  const setIsLogin = useSetRecoilState(loginState);
+
+  useEffect(() => {
+    const checkResult = checkAuth();
+    setIsLogin(checkResult);
+  }, []);
+
+  return <Outlet />;
 };
 
 export default PrivateRouter;

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
+import { useRecoilValue } from "recoil";
 import { API_URL } from "../config";
+import { loginState } from "../recoil/atoms";
 
 const VideoUpload = () => {
+  const isLogin = useRecoilValue(loginState);
   const navigate = useNavigate();
   const [uploadFeild, setUploadFeild] = useState({});
 
@@ -31,7 +34,7 @@ const VideoUpload = () => {
     setUploadFeild({ ...uploadFeild, [feild]: value });
   };
 
-  return (
+  return isLogin ? (
     <div style={{ display: "flex", flexDirection: "column" }}>
       <label htmlFor="title">
         title
@@ -47,6 +50,8 @@ const VideoUpload = () => {
       </label>
       <button onClick={uploadVideo}>upload</button>
     </div>
+  ) : (
+    <Navigate to="/login" />
   );
 };
 

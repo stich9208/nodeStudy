@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, Navigate } from "react-router";
 import { API_URL } from "../config";
+import { useSetRecoilState } from "recoil";
+import { loginState } from "../recoil/atoms";
 
-const Login = () => {
+const Login = ({ isLogin }) => {
   const navigate = useNavigate();
+  const setLoginState = useSetRecoilState(loginState);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
   const inputChange = (e) => {
@@ -24,13 +27,16 @@ const Login = () => {
         if (res.message !== "success") {
           throw new Error(res.message);
         }
+        setLoginState(true);
         alert("login success!");
         navigate("/");
       })
       .catch((err) => alert(err.message));
   };
 
-  return (
+  return isLogin ? (
+    <Navigate to="/" />
+  ) : (
     <form style={{ marginTop: "50px" }} method="post">
       <div style={{ display: "flex" }}>
         <div>email : </div>
