@@ -43,7 +43,10 @@ export const login = async (req, res) => {
         refreshToken,
       })
       .status(200)
-      .send({ message: "success", user });
+      .send({
+        message: "success",
+        user,
+      });
     res.end();
   } catch (err) {
     console.log("login err", err);

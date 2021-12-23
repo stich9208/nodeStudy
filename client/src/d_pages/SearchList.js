@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import { API_URL } from "../config";
 
 const SearchList = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [searchList, setSearchList] = useState([]);

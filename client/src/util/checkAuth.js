@@ -8,10 +8,23 @@ export const checkAuth = () => {
     return false;
   }
   try {
-    jwt.verify(tokenInfo.token, "secret");
+    const currentTs = Math.floor(Date.now() / 1000);
+    const expTs = jwt.decode(tokenInfo.token).exp;
+    const refreshTs = jwt.decode(tokenInfo.refreshToken).exp;
+    if (currentTs > expTs) {
+      if (currentTs > refreshTs) {
+        return false;
+      }
+      fetch(`${process.env.REACT_APP_API_URL}/auth`)
+        .then((res) => res.json())
+        .then((res) => {
+          console.log(res.message);
+        })
+        .catch((err) => console.log(err));
+      return true;
+    }
     return true;
   } catch (err) {
-    console.log(err.message);
     return false;
   }
 };

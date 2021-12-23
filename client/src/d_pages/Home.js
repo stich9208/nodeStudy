@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Cookies } from "react-cookie";
-import { API_URL } from "../config";
 
 const Home = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const cookies = new Cookies();
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);

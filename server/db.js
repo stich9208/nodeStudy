@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/nodestudy")
+  .connect(process.env.DB_URL)
   .then(() => console.log("🌳 mongodb connected"))
   .catch((err) => console.log("🚨 mongodb error", err));

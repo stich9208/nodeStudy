@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import dotenv from "dotenv";
 import PrivateRouter from "./routers/PrivateRouter";
-import AuthRouter from "./routers/AuthRouter";
 import Nav from "./b_organisms/Nav";
 import Home from "./d_pages/Home";
 import Join from "./d_pages/Join";
@@ -14,6 +14,8 @@ import VideoUpload from "./d_pages/VideoUpload";
 import NotFound from "./d_pages/NotFound";
 
 const RootRouter = () => {
+  dotenv.config();
+
   return (
     <BrowserRouter>
       <Routes>

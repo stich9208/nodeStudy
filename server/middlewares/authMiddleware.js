@@ -7,7 +7,7 @@ export const authMiddleware = async (req, res, next) => {
   }
   const { token, refreshToken } = req.cookies.webToken;
   try {
-    const decoded = jwt.verify(token, "secret");
+    const decoded = jwt.verify(token, process.env.TOKEN_KEY);
     const { _id } = decoded;
     const isMatch = await User.exists({ _id });
     if (isMatch) {
@@ -17,7 +17,7 @@ export const authMiddleware = async (req, res, next) => {
   } catch (err) {
     if (err.message === "jwt expired") {
       try {
-        const refreshDecoded = jwt.verify(refreshToken, "secret");
+        const refreshDecoded = jwt.verify(refreshToken, process.env.TOKEN_KEY);
         const user = await User.findById(refreshDecoded._id);
         const newToken = await user.generateAccessToken();
         res.cookie("webToken", {

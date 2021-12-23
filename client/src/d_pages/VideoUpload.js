@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import { API_URL } from "../config";
 import { loginState } from "../recoil/atoms";
 
 const VideoUpload = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const isLogin = useRecoilValue(loginState);
   const navigate = useNavigate();
   const [uploadFeild, setUploadFeild] = useState({});

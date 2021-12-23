@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
-import { API_URL } from "../config";
 import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/atoms";
 
 const Login = () => {
+  const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });

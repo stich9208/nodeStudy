@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { Cookies } from "react-cookie";
-import { API_URL } from "../config";
 import { loginState } from "../recoil/atoms";
 
 const VideoDetail = () => {
-  //login 되어 있지 않을 경우 모든 버튼 비활성화
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const cookies = new Cookies();
   const params = useParams();
   const navigate = useNavigate();

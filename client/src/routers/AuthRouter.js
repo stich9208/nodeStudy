@@ -9,7 +9,6 @@ const AuthRouter = () => {
   useEffect(() => {
     setIsLogin(checkAuth());
   }, []);
-  console.log("inAuthRouter", isLogin);
   return !isLogin ? <Outlet /> : <Navigate to="/" />;
 };
 

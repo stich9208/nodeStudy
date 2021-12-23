@@ -1,7 +1,10 @@
+import dotenv from "dotenv";
 import "./db.js";
 import "./models/Video";
 import "./models/User";
 import app from "./server";
+
+dotenv.config();
 
 const PORT = 4000;
 
