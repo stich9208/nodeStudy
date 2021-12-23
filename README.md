@@ -53,3 +53,15 @@
 - 검색 기능 구현
 - react-router-dom v6에서의 `useSearchParams`훅을 사용하여 query string에 접근, 이후 query stirng을 서버로 전달하여 해당 string과 일치하는 아이템을 반환하도록 구현
 - mongoose의 `find`메서드에서 **$regExp**를 사용하여 title 필드에 옵션을 주었다.
+
+### 2021.12.23
+
+- jsonwebtoken을 활용하여 유저의 로그인 로직 구현
+- token과 refresh token을 cookie에 저장하여 서버와 통신
+- recoil을 활용하여 유저의 로그인 상태를 전역으로 관리
+- 어떠한 부분에서 서버와 통신을 해야 유저의 로그인 상태를 가장 매끄럽게 받아오고 전역으로 관리할 수 있는지 고민해보았다
+- 결론은 front내 유틸 함수로 checkAuth라는 함수를 생성, 이후 privateRouter 파일을 따로 생성하여
+  rootRouter내에서 인증이 필요한 Route들을 children으로 포함하였고, privateRouter내에서 checkAuth 함수를 호출하도록 설계하였다.
+- checkAuth 함수내에서는 서버와의 불필요한 통신을 줄이기 위해 cookie에 저장되어 있는 token의 만료시기와 현재시기를 비교하여 만료시기가 지났을 경우 refreshToken의 만료시기와 비교한다.
+  이후 refreshToken의 만료시기도 지났을 경우 서버와의 통신을 통해 해당 유저를 로그아웃 시키고 로그인 페이지를 띄워준다. (refreshToken의 만료시기가 지나지 않았을 경우 새로운 토큰을 생성하여 다시 cookie에 저장하여 준다.)
+- 서버의 /auth api는 authMiddleware를 통해 해당 토큰의 정보와 일치하는 유저를 찾은 후 해당 토큰이 만료되었을 경우 새로운 token을 발급해준다.
