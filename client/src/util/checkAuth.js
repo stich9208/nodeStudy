@@ -19,9 +19,12 @@ export const checkAuth = () => {
         .then((res) => res.json())
         .then((res) => {
           console.log(res.message);
+          return true;
         })
-        .catch((err) => console.log(err));
-      return true;
+        .catch((err) => {
+          console.log(err);
+          return false;
+        });
     }
     return true;
   } catch (err) {

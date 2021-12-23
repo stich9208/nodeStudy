@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
 import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/atoms";
+import Button from "../a_atom/Button";
 
 const Login = () => {
   const API_URL = process.env.REACT_APP_API_URL;
@@ -54,7 +55,7 @@ const Login = () => {
         <input type="password" name="password" onChange={inputChange} />
       </div>
 
-      <button onClick={loginBtnClick}>LOGIN</button>
+      <Button title="login" onClick={loginBtnClick} />
     </form>
   );
 };
