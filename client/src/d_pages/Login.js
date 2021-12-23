@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
 import { API_URL } from "../config";
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/atoms";
 
-const Login = ({ isLogin }) => {
+const Login = () => {
   const navigate = useNavigate();
-  const setLoginState = useSetRecoilState(loginState);
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, []);
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +33,7 @@ const Login = ({ isLogin }) => {
         if (res.message !== "success") {
           throw new Error(res.message);
         }
-        setLoginState(true);
+        setIsLogin(true);
         alert("login success!");
         navigate("/");
       })

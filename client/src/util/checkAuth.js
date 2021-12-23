@@ -8,14 +8,10 @@ export const checkAuth = () => {
     return false;
   }
   try {
-    const tokenExpTs = jwt.verify(tokenInfo.token, "secret").exp;
-    const nowTs = Math.floor(Date.now() / 1000);
-    if (nowTs < tokenExpTs) {
-      return true;
-    }
-    return false;
+    jwt.verify(tokenInfo.token, "secret");
+    return true;
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
     return false;
   }
 };

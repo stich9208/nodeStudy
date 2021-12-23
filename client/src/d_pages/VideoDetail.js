@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { Cookies } from "react-cookie";
 import { API_URL } from "../config";
+import { loginState } from "../recoil/atoms";
 
 const VideoDetail = () => {
   //login 되어 있지 않을 경우 모든 버튼 비활성화
@@ -12,6 +14,8 @@ const VideoDetail = () => {
   const [video, setVideo] = useState("");
   const [editVideo, setEditVideo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
+  const [btnVisible, setBtnVisible] = useState(false);
+  const [isLogin, setIsLogin] = useRecoilState(loginState);
 
   useEffect(() => {
     fetch(`${API_URL}/video/${params.id}`)
@@ -19,6 +23,10 @@ const VideoDetail = () => {
       .then((res) => setVideo(res.video))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    isLogin ? setBtnVisible(true) : setBtnVisible(false);
+  }, [isLogin]);
 
   useEffect(() => {
     setEditVideo(video);
@@ -42,7 +50,7 @@ const VideoDetail = () => {
           setIsEdit(true);
         }
         if (res.message === "login") {
-          cookies.remove("webToken");
+          // cookies.remove("webToken");
           alert("login please!");
           return navigate("/login");
         }
@@ -66,7 +74,7 @@ const VideoDetail = () => {
               setIsEdit(false);
             }
             if (res.message === "login") {
-              cookies.remove("webToken");
+              // cookies.remove("webToken");
               alert("login please!");
               return navigate("/login");
             }
@@ -151,8 +159,18 @@ const VideoDetail = () => {
           </>
         ) : (
           <>
-            <button onClick={onEdit}>Edit video</button>
-            <button onClick={onDelete}>Delete video</button>
+            <button
+              style={{ display: btnVisible ? "block" : "none" }}
+              onClick={onEdit}
+            >
+              Edit video
+            </button>
+            <button
+              style={{ display: btnVisible ? "block" : "none" }}
+              onClick={onDelete}
+            >
+              Delete video
+            </button>
           </>
         )}
       </div>
