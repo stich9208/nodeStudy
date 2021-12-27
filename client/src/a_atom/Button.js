@@ -10,6 +10,16 @@ const Button = ({ title, type, size, onClick }) => {
 };
 
 const ButtonContainer = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: ${(props) =>
+    props.size === "big"
+      ? "200px"
+      : props.size === "medium"
+      ? "150px"
+      : "100px"};
+  height: 30px;
   font-weight: bold;
   border: ${(props) =>
     props.type === "primary" ? "solid 3px white" : "solid 3px #FECF47"};

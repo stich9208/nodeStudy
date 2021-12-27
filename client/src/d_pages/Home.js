@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Cookies } from "react-cookie";
 
 const Home = () => {
   const API_URL = process.env.REACT_APP_API_URL;
-  const cookies = new Cookies();
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);
 
@@ -14,22 +12,6 @@ const Home = () => {
       .then((res) => setVideos(res.videos))
       .catch((err) => console.log("fetch error!", err));
   }, []);
-
-  // const clickUpload = () => {
-  //   fetch(`${API_URL}/auth`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res.message === "success") {
-  //         return navigate("/video/upload");
-  //       }
-  //       if (res.message === "login") {
-  //         cookies.remove("webToken");
-  //         alert("login please!");
-  //         return navigate("/login");
-  //       }
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   const clickUpload = () => {
     return navigate("video/upload");

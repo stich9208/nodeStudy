@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
+import styled from "styled-components";
 import { useRecoilState } from "recoil";
 import { loginState } from "../recoil/atoms";
+import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
 
 const Login = () => {
@@ -44,20 +46,30 @@ const Login = () => {
   return isLogin ? (
     <Navigate to="/" />
   ) : (
-    <form style={{ marginTop: "50px" }} method="post">
-      <div style={{ display: "flex" }}>
-        <div>email : </div>
-        <input type="email" name="email" onChange={inputChange} />
-      </div>
-
-      <div style={{ display: "flex" }}>
-        <div>password : </div>
-        <input type="password" name="password" onChange={inputChange} />
-      </div>
-
-      <Button title="login" onClick={loginBtnClick} />
-    </form>
+    <LoginContainer>
+      <LoginForm method="post">
+        <Input type="email" name="email" onChange={inputChange} />
+        <Input type="password" name="password" onChange={inputChange} />
+        <Button title="login" onClick={loginBtnClick} />
+      </LoginForm>
+    </LoginContainer>
   );
 };
+
+const LoginContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+`;
+
+const LoginForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+`;
 
 export default Login;

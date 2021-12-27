@@ -19,18 +19,17 @@ const RootRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Nav />}>
-          {/* always open */}
-          <Route path="/" element={<Home />} />
-          <Route path="video" element={<Home />} />
-          <Route path="search" element={<SearchList />} />
-          <Route path="video/:id" element={<VideoDetail />} />
-          {/* should be not logged in
-          <Route path="/" element={<AuthRouter />}></Route> */}
-          {/* should be logged in */}
-          <Route path="/" element={<PrivateRouter />}>
-            <Route path="join" element={<Join />} />
-            <Route path="login" element={<Login />} />
+        <Route path="/" element={<PrivateRouter />}>
+          <Route path="join" element={<Join />} />
+          <Route path="login" element={<Login />} />
+          <Route path="/" element={<Nav />}>
+            {/* always open */}
+            <Route path="/" element={<Home />} />
+            <Route path="video" element={<Home />} />
+            <Route path="search" element={<SearchList />} />
+            <Route path="video/:id" element={<VideoDetail />} />
+            {/* should be not logged in
+            {/* should be logged in */}
             <Route path="user" element={<UserDetail />} />
             <Route path="user/edit" element={<UserEdit />} />
             <Route path="video/upload" element={<VideoUpload />} />
