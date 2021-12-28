@@ -60,6 +60,7 @@ const Login = () => {
           placeholder="email"
           size="big"
           onChange={inputChange}
+          style={{ marginBottom: "20px" }}
         />
         <Input
           type="password"
@@ -67,6 +68,7 @@ const Login = () => {
           placeholder="password"
           size="big"
           onChange={inputChange}
+          style={{ marginBottom: "20px" }}
         />
         <Button title="login" size="big" onClick={loginBtnClick} />
       </LoginForm>

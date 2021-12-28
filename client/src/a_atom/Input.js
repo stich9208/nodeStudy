@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Input = ({ type, name, size, placeholder, onChange }) => {
+const Input = ({ type, name, size, placeholder, onChange, style }) => {
   return (
     <InputContainer
       type={type}
@@ -9,6 +9,7 @@ const Input = ({ type, name, size, placeholder, onChange }) => {
       size={size}
       placeholder={placeholder}
       onChange={onChange}
+      style={style}
     />
   );
 };
@@ -21,7 +22,7 @@ const InputContainer = styled.input`
       ? "300px"
       : "200px"};
   height: 40px;
-  margin-bottom: 15px;
+
   padding-left: 8px;
   font-size: 18px;
   border: 3px solid #fecf47;

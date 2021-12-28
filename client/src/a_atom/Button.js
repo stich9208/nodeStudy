@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = ({ title, type, size, onClick }) => {
+const Button = ({ title, type, size, onClick, style }) => {
   return (
-    <ButtonContainer type={type} size={size} onClick={onClick}>
+    <ButtonContainer type={type} size={size} onClick={onClick} style={style}>
       {title.toUpperCase()}
     </ButtonContainer>
   );
@@ -17,9 +17,10 @@ const ButtonContainer = styled.button`
     props.size === "big"
       ? "200px"
       : props.size === "medium"
-      ? "150px"
-      : "100px"};
-  height: 40px;
+      ? "120px"
+      : "80px"};
+  height: ${(props) =>
+    props.size === "big" ? "40px" : props.size === "medium" ? "35px" : "30px"};
   font-weight: bold;
   font-size: ${(props) =>
     props.size === "big" ? "20px" : props.size === "medium" ? "18px" : "15px"};
