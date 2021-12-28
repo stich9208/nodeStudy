@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { loginState } from "../recoil/atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { loginState, userState } from "../recoil/atoms";
 import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
 
 const Login = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
+  const setUserInfo = useSetRecoilState(userState);
   const [isLogin, setIsLogin] = useRecoilState(loginState);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
@@ -16,7 +17,7 @@ const Login = () => {
     if (isLogin) {
       navigate("/");
     }
-  }, []);
+  }, [isLogin, navigate]);
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -36,9 +37,14 @@ const Login = () => {
         if (res.message !== "success") {
           throw new Error(res.message);
         }
+        const { user } = res;
         setIsLogin(true);
+        setUserInfo({
+          email: user.email,
+          username: user.username,
+          _id: user._id,
+        });
         alert("login success!");
-        navigate("/");
       })
       .catch((err) => alert(err.message));
   };
@@ -48,9 +54,21 @@ const Login = () => {
   ) : (
     <LoginContainer>
       <LoginForm method="post">
-        <Input type="email" name="email" onChange={inputChange} />
-        <Input type="password" name="password" onChange={inputChange} />
-        <Button title="login" onClick={loginBtnClick} />
+        <Input
+          type="email"
+          name="email"
+          placeholder="email"
+          size="big"
+          onChange={inputChange}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="password"
+          size="big"
+          onChange={inputChange}
+        />
+        <Button title="login" size="big" onClick={loginBtnClick} />
       </LoginForm>
     </LoginContainer>
   );

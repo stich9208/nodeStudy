@@ -62,25 +62,28 @@ const Join = () => {
   };
 
   return (
-    <form style={{ marginTop: "50px" }} method="post">
-      <div style={{ display: "flex" }}>
-        <div>email : </div>
-        <input type="email" name="email" onChange={inputChange} />
-      </div>
-      <div style={{ display: "flex" }}>
-        <div>name : </div>
-        <input type="text" name="username" onChange={inputChange} />
-      </div>
-      <div style={{ display: "flex" }}>
-        <div>password : </div>
-        <input type="password" name="password" onChange={inputChange} />
-      </div>
-      <div style={{ display: "flex" }}>
-        <div>password confirm : </div>
-        <input type="password" name="password2" onChange={inputChange} />
-      </div>
-      <button onClick={joinBtnClick}>JOIN</button>
-    </form>
+    <>
+      <form style={{ marginTop: "50px" }} method="post">
+        <div style={{ display: "flex" }}>
+          <div>email : </div>
+          <input type="email" name="email" onChange={inputChange} />
+        </div>
+        <div style={{ display: "flex" }}>
+          <div>name : </div>
+          <input type="text" name="username" onChange={inputChange} />
+        </div>
+        <div style={{ display: "flex" }}>
+          <div>password : </div>
+          <input type="password" name="password" onChange={inputChange} />
+        </div>
+        <div style={{ display: "flex" }}>
+          <div>password confirm : </div>
+          <input type="password" name="password2" onChange={inputChange} />
+        </div>
+        <button onClick={joinBtnClick}>JOIN</button>
+      </form>
+      <button onClick={() => navigate("/login")}>login</button>
+    </>
   );
 };
 

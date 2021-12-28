@@ -20,6 +20,7 @@ export const uploadVideo = async (req, res) => {
 export const readVideo = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
+    res.locals.videoo = "videooooo";
     return res.json({ videos });
   } catch (err) {
     return res.sendStatus(404).send({ message: "not found videos", err });

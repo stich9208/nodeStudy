@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import dotenv from "dotenv";
 import PrivateRouter from "./routers/PrivateRouter";
+import AuthRouter from "./routers/AuthRouter";
 import Nav from "./b_organisms/Nav";
 import Home from "./d_pages/Home";
 import Join from "./d_pages/Join";
@@ -19,22 +20,58 @@ const RootRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<PrivateRouter />}>
-          <Route path="join" element={<Join />} />
-          <Route path="login" element={<Login />} />
-          <Route path="/" element={<Nav />}>
-            {/* always open */}
-            <Route path="/" element={<Home />} />
-            <Route path="video" element={<Home />} />
-            <Route path="search" element={<SearchList />} />
-            <Route path="video/:id" element={<VideoDetail />} />
-            {/* should be not logged in
-            {/* should be logged in */}
-            <Route path="user" element={<UserDetail />} />
-            <Route path="user/edit" element={<UserEdit />} />
-            <Route path="video/upload" element={<VideoUpload />} />
-          </Route>
+        <Route element={<Nav />}>
+          <Route path="/" element={<Home />} />
+          <Route path="search" element={<SearchList />} />
+          <Route
+            path="video/upload"
+            element={
+              <PrivateRouter>
+                <VideoUpload />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="video/:id"
+            element={
+              <PrivateRouter>
+                <VideoDetail />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="user"
+            element={
+              <PrivateRouter>
+                <UserDetail />
+              </PrivateRouter>
+            }
+          />
+          <Route
+            path="user/edit"
+            element={
+              <PrivateRouter>
+                <UserEdit />
+              </PrivateRouter>
+            }
+          />
         </Route>
+        <Route
+          path="join"
+          element={
+            <AuthRouter>
+              <Join />
+            </AuthRouter>
+          }
+        />
+        <Route
+          path="login"
+          element={
+            <AuthRouter>
+              <Login />
+            </AuthRouter>
+          }
+        />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
 import { loginState } from "../recoil/atoms";
 
@@ -13,14 +13,14 @@ const VideoDetail = () => {
   const [editVideo, setEditVideo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [btnVisible, setBtnVisible] = useState(false);
-  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const isLogin = useRecoilValue(loginState);
 
   useEffect(() => {
     fetch(`${API_URL}/video/${params.id}`)
       .then((res) => res.json())
       .then((res) => setVideo(res.video))
       .catch((err) => console.log(err));
-  }, []);
+  }, [params.id]);
 
   useEffect(() => {
     isLogin ? setBtnVisible(true) : setBtnVisible(false);

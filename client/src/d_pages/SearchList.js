@@ -13,7 +13,7 @@ const SearchList = () => {
       .then((res) => res.json())
       .then((res) => setSearchList(res.videos))
       .catch((err) => console.log(err));
-  }, []);
+  }, [params]);
 
   return (
     <div>

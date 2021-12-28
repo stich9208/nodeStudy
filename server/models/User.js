@@ -26,13 +26,13 @@ userSchema.pre("save", async function () {
 
 userSchema.methods.comparePassword = async function (purePassword) {
   const user = this;
-  return await bcrypt.compare(purePassword, user.password);
+  return bcrypt.compare(purePassword, user.password);
 };
 
 userSchema.methods.generateAccessToken = async function () {
   const user = this;
-  const { _id, name, email } = user;
-  const JWT = jwt.sign({ _id, name, email }, process.env.TOKEN_KEY, {
+  const { _id, name, email, username } = user;
+  const JWT = jwt.sign({ _id, name, email, username }, process.env.TOKEN_KEY, {
     expiresIn: "10s",
   });
   return JWT;

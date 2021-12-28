@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const API_URL = process.env.REACT_APP_API_URL;
@@ -14,12 +14,27 @@ const Home = () => {
   }, []);
 
   const clickUpload = () => {
-    return navigate("video/upload");
+    navigate("/video/upload");
+  };
+
+  const clickJoin = () => {
+    navigate("/join");
+  };
+
+  const clickLogin = () => {
+    navigate("/login");
+  };
+
+  const clickuser = () => {
+    navigate("user");
   };
 
   return (
     <div>
       <button onClick={clickUpload}>upload</button>
+      <button onClick={clickJoin}>join</button>
+      <button onClick={clickLogin}>login</button>
+      <button onClick={clickuser}>user</button>
       <ul>
         {videos.map((video) => {
           return (

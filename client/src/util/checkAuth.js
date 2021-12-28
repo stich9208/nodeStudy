@@ -2,6 +2,7 @@ import { Cookies } from "react-cookie";
 import jwt from "jsonwebtoken";
 
 export const checkAuth = () => {
+  console.log("checkAuth");
   const cookies = new Cookies();
   const tokenInfo = cookies.get("webToken");
   if (!tokenInfo) {
