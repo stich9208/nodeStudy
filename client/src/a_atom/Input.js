@@ -21,8 +21,8 @@ const InputContainer = styled.input`
       : props.size === "medium"
       ? "300px"
       : "200px"};
-  height: 40px;
-
+  height: ${(props) =>
+    props.size === "big" ? "40px" : props.size === "medium" ? "35px" : "30px"};
   padding-left: 8px;
   font-size: 18px;
   border: 3px solid #fecf47;

@@ -45,9 +45,7 @@ export const login = async (req, res) => {
       .status(200)
       .send({
         message: "success",
-        user,
       });
-    res.end();
   } catch (err) {
     console.log("login err", err);
     res.status(404).send({ message: "fail", err });
@@ -58,8 +56,21 @@ export const detail = (req, res) => {
   res.send(`<h1>USER DETAIL! ID:${req.params.id}</h1>`);
 };
 
-export const edit = (req, res) => {
-  res.send("<h1>PROFILE EDIT!</h1>");
+//=====edit=====
+export const edit = async (req, res) => {
+  const { refreshToken } = req.cookies.webToken;
+  const { email, username, _id } = req.body;
+  try {
+    const user = await User.findByIdAndUpdate(_id, { email, username });
+    const token = await user.generateAccessToken();
+    res
+      .cookie("webToken", { token, refreshToken })
+      .status(200)
+      .send({ message: "success", user });
+  } catch (err) {
+    console.log(err);
+    res.status(404).send({ message: "fail", err });
+  }
 };
 
 export const logout = (req, res) => {

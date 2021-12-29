@@ -31,9 +31,9 @@ userSchema.methods.comparePassword = async function (purePassword) {
 
 userSchema.methods.generateAccessToken = async function () {
   const user = this;
-  const { _id, name, email, username } = user;
-  const JWT = jwt.sign({ _id, name, email, username }, process.env.TOKEN_KEY, {
-    expiresIn: "10s",
+  const { _id, email, username } = user;
+  const JWT = jwt.sign({ _id, email, username }, process.env.TOKEN_KEY, {
+    expiresIn: "1h",
   });
   return JWT;
 };
@@ -42,7 +42,7 @@ userSchema.methods.generateRefreshToken = async function () {
   const user = this;
   const { _id } = user;
   const JWT = jwt.sign({ _id }, process.env.TOKEN_KEY, {
-    expiresIn: "30s",
+    expiresIn: "10h",
   });
   return JWT;
 };

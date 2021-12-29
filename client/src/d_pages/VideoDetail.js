@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { Cookies } from "react-cookie";
-import { loginState } from "../recoil/atoms";
+import { loginState } from "../recoil/selectors";
 
 const VideoDetail = () => {
   const API_URL = process.env.REACT_APP_API_URL;

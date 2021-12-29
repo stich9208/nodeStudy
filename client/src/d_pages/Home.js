@@ -29,6 +29,10 @@ const Home = () => {
     navigate("user");
   };
 
+  const clickVideoItem = (id) => {
+    navigate(`/video/${id}`);
+  };
+
   return (
     <div>
       <button onClick={clickUpload}>upload</button>
@@ -38,7 +42,7 @@ const Home = () => {
       <ul>
         {videos.map((video) => {
           return (
-            <li key={video._id} onClick={() => navigate(`/video/${video._id}`)}>
+            <li key={video._id} onClick={() => clickVideoItem(video._id)}>
               <h3>{video.title}</h3>
               <h5>{new Date(video.createdAt).toUTCString()}</h5>
             </li>

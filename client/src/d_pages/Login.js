@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
 import styled from "styled-components";
-import { useRecoilState, useSetRecoilState } from "recoil";
-import { loginState, userState } from "../recoil/atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { refreshState } from "../recoil/atoms";
+import { loginState } from "../recoil/selectors";
 import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
 
 const Login = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
-  const setUserInfo = useSetRecoilState(userState);
-  const [isLogin, setIsLogin] = useRecoilState(loginState);
+  const [refresh, setRefresh] = useRecoilState(refreshState);
+  const isLogin = useRecoilValue(loginState);
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
   useEffect(() => {
@@ -37,13 +38,7 @@ const Login = () => {
         if (res.message !== "success") {
           throw new Error(res.message);
         }
-        const { user } = res;
-        setIsLogin(true);
-        setUserInfo({
-          email: user.email,
-          username: user.username,
-          _id: user._id,
-        });
+        setRefresh(refresh + 1);
         alert("login success!");
       })
       .catch((err) => alert(err.message));

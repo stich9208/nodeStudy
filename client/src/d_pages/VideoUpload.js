@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import { loginState } from "../recoil/atoms";
+import { loginState } from "../recoil/selectors";
 
 const VideoUpload = () => {
   const API_URL = process.env.REACT_APP_API_URL;

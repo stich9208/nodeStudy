@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+
 import { useRecoilValue } from "recoil";
-import { loginState } from "../recoil/atoms";
+import { loginState } from "../recoil/selectors";
 
 import Input from "../a_atom/Input";
 import Button from "../a_atom/Button";
@@ -17,7 +18,8 @@ const Nav = () => {
     setSearchKey(value);
   };
 
-  const onSearch = () => {
+  const onSearch = (e) => {
+    e.preventDefault();
     navigate(`/search?keyword=${searchKey}`);
   };
 
@@ -29,13 +31,20 @@ const Nav = () => {
             type="text"
             value={searchKey}
             name="keyword"
+            placeholder="Search"
             onChange={onChangeFunc}
           />
           <Button title="search" type="primary" onClick={onSearch} />
         </SearchForm>
         {isLogin ? (
           <div
-            style={{ width: "20px", height: "20px", backgroundColor: "red" }}
+            onClick={() => navigate("user")}
+            style={{
+              width: "20px",
+              height: "20px",
+              backgroundColor: "red",
+              cursor: "pointer",
+            }}
           />
         ) : (
           ""
@@ -48,17 +57,18 @@ const Nav = () => {
 
 const NavContainer = styled.div`
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 80px;
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: blue;
+  height: 60px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: lightgrey;
 `;
 
 const SearchForm = styled.form`
   display: flex;
+  align-items: center;
 `;
 
 export default Nav;

@@ -12,6 +12,7 @@ import UserDetail from "./d_pages/UserDetail";
 import UserEdit from "./d_pages/UserEdit";
 import VideoDetail from "./d_pages/VideoDetail";
 import VideoUpload from "./d_pages/VideoUpload";
+import ChangePassword from "./d_pages/ChangePassword";
 import NotFound from "./d_pages/NotFound";
 
 const RootRouter = () => {
@@ -31,14 +32,7 @@ const RootRouter = () => {
               </PrivateRouter>
             }
           />
-          <Route
-            path="video/:id"
-            element={
-              <PrivateRouter>
-                <VideoDetail />
-              </PrivateRouter>
-            }
-          />
+          <Route path="video/:id" element={<VideoDetail />} />
           <Route
             path="user"
             element={
@@ -55,7 +49,16 @@ const RootRouter = () => {
               </PrivateRouter>
             }
           />
+          <Route
+            path="user/password"
+            element={
+              <PrivateRouter>
+                <ChangePassword />
+              </PrivateRouter>
+            }
+          />
         </Route>
+
         <Route
           path="join"
           element={
@@ -72,6 +75,7 @@ const RootRouter = () => {
             </AuthRouter>
           }
         />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
