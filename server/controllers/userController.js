@@ -61,12 +61,16 @@ export const edit = async (req, res) => {
   const { refreshToken } = req.cookies.webToken;
   const { email, username, _id } = req.body;
   try {
-    const user = await User.findByIdAndUpdate(_id, { email, username });
+    const user = await User.findByIdAndUpdate(
+      _id,
+      { email, username },
+      { returnDocument: "after" }
+    );
     const token = await user.generateAccessToken();
     res
       .cookie("webToken", { token, refreshToken })
       .status(200)
-      .send({ message: "success", user });
+      .send({ message: "success" });
   } catch (err) {
     console.log(err);
     res.status(404).send({ message: "fail", err });

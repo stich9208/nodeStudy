@@ -13,8 +13,6 @@ const UserDetail = () => {
   const [userInput, setUserInput] = useState(userInfo);
   const [isEdit, setIsEdit] = useState(false);
 
-  console.log(userInfo);
-
   const inputChange = (e) => {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
@@ -26,9 +24,10 @@ const UserDetail = () => {
       userInput.email === userInfo.email &&
       userInput.username === userInfo.username
     ) {
-      return clickCancelBtn();
+      return clickCancelBtn(e);
     }
     // setUserInfo({ ...userInfo, userInput });
+    console.log("input in fetch", userInput);
     fetch(`${process.env.REACT_APP_API_URL}/edit`, {
       method: "PUT",
       body: JSON.stringify(userInput),
