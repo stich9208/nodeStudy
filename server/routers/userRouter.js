@@ -7,6 +7,8 @@ import {
   join,
   login,
   auth,
+  checkPassword,
+  changePassword,
 } from "../controllers/userController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
@@ -18,6 +20,8 @@ userRouter.put("/edit", edit);
 userRouter.get("/logout", logout);
 userRouter.get("/remove", remove);
 userRouter.get("/:id(\\d+)", detail);
+userRouter.post("/checkpassword", checkPassword);
+userRouter.put("/changepassword", changePassword);
 userRouter.get("/auth", authMiddleware, auth);
 
 export default userRouter;

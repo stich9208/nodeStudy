@@ -8,7 +8,6 @@ export const checkAuth = () => {
     return false;
   }
   try {
-    console.log(jwt.decode(tokenInfo.token));
     const currentTs = Math.floor(Date.now() / 1000);
     const expTs = jwt.decode(tokenInfo.token).exp;
     const refreshTs = jwt.decode(tokenInfo.refreshToken).exp;

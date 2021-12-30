@@ -29,10 +29,11 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email });
+    const isPassword = await user.comparePassword(password);
     if (!user) {
       return res.send({ message: "no match user" });
     }
-    if (!user.comparePassword(password)) {
+    if (!isPassword) {
       res.send({ message: "please check your password!" });
     }
     const token = await user.generateAccessToken();
@@ -74,6 +75,37 @@ export const edit = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(404).send({ message: "fail", err });
+  }
+};
+
+//=====check password=====
+export const checkPassword = async (req, res) => {
+  const { password, userInfo } = req.body;
+  try {
+    const user = await User.findById(userInfo._id);
+    const isMatch = await user.comparePassword(password);
+    if (isMatch) {
+      return res.send({ message: "success" });
+    }
+    return res.send({ message: "wrong password" });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).send({ message: "fail", err });
+  }
+};
+
+//=====change password=====
+export const changePassword = async (req, res) => {
+  const { newPassword, userInfo } = req.body;
+  try {
+    const user = await User.findById(userInfo._id);
+    user.password = newPassword;
+    user.save();
+    console.log(user);
+    return res.send({ message: "success" });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).send({ message: "fail", err });
   }
 };
 

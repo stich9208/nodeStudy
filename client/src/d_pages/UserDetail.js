@@ -26,8 +26,6 @@ const UserDetail = () => {
     ) {
       return clickCancelBtn(e);
     }
-    // setUserInfo({ ...userInfo, userInput });
-    console.log("input in fetch", userInput);
     fetch(`${process.env.REACT_APP_API_URL}/edit`, {
       method: "PUT",
       body: JSON.stringify(userInput),
@@ -89,14 +87,7 @@ const UserDetail = () => {
             <div>{userInput.username}</div>
           )}
         </div>
-        {/* <div style={{ display: "flex" }}>
-            <div>password : </div>
-            <input type="password" name="password" onChange={inputChange} />
-          </div>
-          <div style={{ display: "flex" }}>
-            <div>password confirm : </div>
-            <input type="password" name="password2" onChange={inputChange} />
-          </div> */}
+
         {isEdit ? (
           <>
             <button onClick={clickCancelBtn}>CANCEL</button>
