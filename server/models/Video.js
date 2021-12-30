@@ -9,6 +9,7 @@ const videoSchema = mongoose.Schema({
     views: { type: Number, required: true, default: 0 },
     rating: { type: Number, required: true, default: 0 },
   },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
 const Video = mongoose.model("Video", videoSchema);

@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { useNavigate, Navigate } from "react-router";
 import { useRecoilValue } from "recoil";
-import { loginState } from "../recoil/selectors";
+import { loginState, userInfoState } from "../recoil/selectors";
 
 const VideoUpload = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const isLogin = useRecoilValue(loginState);
+  const userInfo = useRecoilValue(userInfoState);
   const navigate = useNavigate();
   const [uploadFeild, setUploadFeild] = useState({});
 
   const uploadVideo = () => {
     fetch(`${API_URL}/upload`, {
       method: "POST",
-      body: JSON.stringify(uploadFeild),
+      body: JSON.stringify({ uploadFeild, id: userInfo._id }),
       headers: { "Content-Type": "application/json" },
     })
       .then((res) => res.json())

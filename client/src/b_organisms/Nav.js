@@ -23,9 +23,14 @@ const Nav = () => {
     navigate(`/search?keyword=${searchKey}`);
   };
 
+  const clickHome = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <NavContainer style={{ display: "flex" }}>
+        <HomeLogo onClick={clickHome}>HOME</HomeLogo>
         <SearchForm>
           <Input
             type="text"
@@ -64,6 +69,13 @@ const NavContainer = styled.div`
   padding-left: 15px;
   padding-right: 15px;
   background-color: lightgrey;
+`;
+
+const HomeLogo = styled.div`
+  font-size: 15px;
+  font-weight: bold;
+  color: black;
+  cursor: pointer;
 `;
 
 const SearchForm = styled.form`

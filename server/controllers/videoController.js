@@ -1,14 +1,20 @@
 import Video from "../models/Video";
+import User from "../models/User";
 
 //upload video
 export const uploadVideo = async (req, res) => {
-  const { title, description, hashtags } = req.body;
+  const { title, description, hashtags } = req.body.uploadFeild;
+  const { id } = req.body;
   try {
-    await Video.create({
+    const newVideo = await Video.create({
       title,
       description,
       hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
+      owner: id,
     });
+    const user = await User.findById({ _id: id });
+    user.videos.push(newVideo._id);
+    user.save();
   } catch (err) {
     console.log("upload video", err);
     return res.status(404).send({ message: "can`t upload video" });
@@ -20,7 +26,6 @@ export const uploadVideo = async (req, res) => {
 export const readVideo = async (req, res) => {
   try {
     const videos = await Video.find({}).sort({ createdAt: "desc" });
-    res.locals.videoo = "videooooo";
     return res.json({ videos });
   } catch (err) {
     return res.sendStatus(404).send({ message: "not found videos", err });

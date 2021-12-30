@@ -89,6 +89,7 @@ const ChangePassword = () => {
         <input
           type="password"
           name="beforePassword"
+          autoComplete="off"
           onChange={inputChange}
           onBlur={originalPasswordCheck}
         />
@@ -96,13 +97,19 @@ const ChangePassword = () => {
       </div>
       <div style={{ display: "flex" }}>
         <div>new password : </div>
-        <input type="password" name="newPassword" onChange={inputChange} />
+        <input
+          type="password"
+          name="newPassword"
+          autoComplete="off"
+          onChange={inputChange}
+        />
       </div>
       <div style={{ display: "flex" }}>
         <div>new password confirm : </div>
         <input
           type="password"
           name="newPasswordConfirm"
+          autoComplete="off"
           onChange={inputChange}
         />
       </div>
