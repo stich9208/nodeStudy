@@ -2,7 +2,7 @@ import { selector } from "recoil";
 import { Cookies } from "react-cookie";
 import jwt from "jsonwebtoken";
 
-import { checkAuth } from "../util/checkAuth";
+import { checkAuth, getUserDetail } from "../util/util";
 import { refreshState } from "./atoms";
 
 const cookies = new Cookies();
@@ -20,9 +20,9 @@ export const userInfoState = selector({
   get: ({ get }) => {
     const isLogin = get(loginState);
     const tokenInfo = cookies.get("webToken").token;
-    const { email, username, _id } = jwt.decode(tokenInfo);
+    const { _id } = jwt.decode(tokenInfo);
     if (isLogin) {
-      return { email, username, _id };
+      return getUserDetail(_id);
     }
     return null;
   },

@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { useRecoilValue } from "recoil";
+import { userInfoState } from "../recoil/selectors";
+
 const Home = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);
+  const userInfo = useRecoilValue(userInfoState);
+
+  console.log(userInfo);
 
   useEffect(() => {
     fetch(`${API_URL}/videos`)

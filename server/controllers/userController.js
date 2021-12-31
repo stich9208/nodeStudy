@@ -34,7 +34,7 @@ export const login = async (req, res) => {
       return res.send({ message: "no match user" });
     }
     if (!isPassword) {
-      res.send({ message: "please check your password!" });
+      return res.send({ message: "please check your password!" });
     }
     const token = await user.generateAccessToken();
     const refreshToken = await user.generateRefreshToken();
@@ -53,8 +53,9 @@ export const login = async (req, res) => {
   }
 };
 
-export const detail = (req, res) => {
-  res.send(`<h1>USER DETAIL! ID:${req.params.id}</h1>`);
+export const detail = async (req, res) => {
+  const { id } = req.params;
+  const user = User.findById({ id });
 };
 
 //=====edit=====
@@ -101,12 +102,15 @@ export const changePassword = async (req, res) => {
     const user = await User.findById(userInfo._id);
     user.password = newPassword;
     user.save();
-    console.log(user);
     return res.send({ message: "success" });
   } catch (err) {
     console.log(err);
     return res.status(404).send({ message: "fail", err });
   }
+};
+
+export const getUserVideoList = async (req, res) => {
+  const { _id } = req.body;
 };
 
 export const logout = (req, res) => {
