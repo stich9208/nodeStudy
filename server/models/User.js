@@ -18,10 +18,12 @@ const hashPassword = async (password) => {
 };
 
 userSchema.pre("save", async function () {
-  try {
-    this.password = await hashPassword(this.password);
-  } catch (err) {
-    throw new Error(err);
+  if (this.isModified("password")) {
+    try {
+      this.password = await hashPassword(this.password);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 });
 

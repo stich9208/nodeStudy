@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import { useRecoilValue, useRecoilState } from "recoil";
-import { refreshState } from "../recoil/atoms";
+import { refreshState, userVideoState } from "../recoil/atoms";
 import { userInfoState } from "../recoil/selectors";
 
 const UserDetail = () => {
   const navigate = useNavigate();
   const userInfo = useRecoilValue(userInfoState);
   const [refresh, setRefresh] = useRecoilState(refreshState);
+  const [userVideos, setUserVideos] = useRecoilState(userVideoState);
   const [userInput, setUserInput] = useState(userInfo);
   const [isEdit, setIsEdit] = useState(false);
+
+  useEffect(() => {
+    const API_URL = process.env.REACT_APP_API_URL;
+    fetch(`${API_URL}/videolist/${userInfo._id}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setUserVideos(res.videoList);
+      })
+      .catch((err) => console.log("get user info error", err));
+  }, []);
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -58,6 +69,10 @@ const UserDetail = () => {
     navigate("password");
   };
 
+  const clickVideoItem = (id) => {
+    navigate(`/video/${id}`);
+  };
+
   return (
     <UserDetailContainer>
       <form>
@@ -98,6 +113,17 @@ const UserDetail = () => {
         )}
       </form>
       <button onClick={clickChangePwd}>CHANGE PPASSWORD</button>
+
+      <ul>
+        {userVideos.map((video) => {
+          return (
+            <li key={video._id} onClick={() => clickVideoItem(video._id)}>
+              <h3>{video.title}</h3>
+              <h5>{new Date(video.createdAt).toUTCString()}</h5>
+            </li>
+          );
+        })}
+      </ul>
     </UserDetailContainer>
   );
 };

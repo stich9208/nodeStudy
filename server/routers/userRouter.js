@@ -9,6 +9,7 @@ import {
   auth,
   checkPassword,
   changePassword,
+  getUserVideoList,
 } from "../controllers/userController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
@@ -19,7 +20,7 @@ userRouter.post("/login", login);
 userRouter.put("/edit", authMiddleware, edit);
 userRouter.get("/logout", authMiddleware, logout);
 userRouter.get("/remove", authMiddleware, remove);
-userRouter.get("/:id(\\d+)", authMiddleware, detail);
+userRouter.get("/videolist/:id", authMiddleware, getUserVideoList);
 userRouter.post("/checkpassword", authMiddleware, checkPassword);
 userRouter.put("/changepassword", authMiddleware, changePassword);
 userRouter.get("/auth", authMiddleware, auth);

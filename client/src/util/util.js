@@ -31,11 +31,3 @@ export const checkAuth = () => {
     return false;
   }
 };
-
-export const getUserDetail = (id) => {
-  const API_URL = process.env.REACT_APP_API_URL;
-  fetch(`${API_URL}/${id}`)
-    .then((res) => res.json())
-    .then((res) => res)
-    .catch((err) => console.log("get user info error", err));
-};

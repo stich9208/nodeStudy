@@ -1,4 +1,5 @@
 import User from "../models/User";
+import mongoose from "mongoose";
 
 //=====join=====
 export const join = async (req, res) => {
@@ -53,9 +54,18 @@ export const login = async (req, res) => {
   }
 };
 
+//=====detail=====
 export const detail = async (req, res) => {
+  console.log("detail");
   const { id } = req.params;
-  const user = User.findById({ id });
+  // try {
+  //   const user = await User.findById({ id });
+  //   return res.status(200).send({ message: "success", user });
+  // } catch (err) {
+  //   console.log(err);
+  //   return res.status(404).send({ message: "find user fail" });
+  // }
+  res.end();
 };
 
 //=====edit=====
@@ -109,8 +119,18 @@ export const changePassword = async (req, res) => {
   }
 };
 
+//=====user video list=====
 export const getUserVideoList = async (req, res) => {
-  const { _id } = req.body;
+  const { id } = req.params;
+  try {
+    const user = await User.findById({
+      _id: mongoose.Types.ObjectId(id),
+    }).populate("videos");
+    return res.status(200).send({ message: "success", videoList: user.videos });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).send({ message: "find user fail" });
+  }
 };
 
 export const logout = (req, res) => {

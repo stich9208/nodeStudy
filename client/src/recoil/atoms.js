@@ -9,3 +9,8 @@ export const userState = atom({
   key: "userState",
   default: null,
 });
+
+export const userVideoState = atom({
+  key: "userVideoList",
+  default: [],
+});

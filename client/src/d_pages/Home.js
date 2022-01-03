@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import { useRecoilValue } from "recoil";
-import { userInfoState } from "../recoil/selectors";
+import { Cookies } from "react-cookie";
 
 const Home = () => {
   const API_URL = process.env.REACT_APP_API_URL;
+  const cookies = new Cookies();
   const navigate = useNavigate();
   const [videos, setVideos] = useState([]);
-  const userInfo = useRecoilValue(userInfoState);
-
-  console.log(userInfo);
 
   useEffect(() => {
     fetch(`${API_URL}/videos`)
@@ -39,12 +35,17 @@ const Home = () => {
     navigate(`/video/${id}`);
   };
 
+  const clickLogout = () => {
+    const token = cookies.remove("webToken");
+  };
+
   return (
     <div>
       <button onClick={clickUpload}>upload</button>
       <button onClick={clickJoin}>join</button>
       <button onClick={clickLogin}>login</button>
       <button onClick={clickuser}>user</button>
+      <button onClick={clickLogout}>logout</button>
       <ul>
         {videos.map((video) => {
           return (
