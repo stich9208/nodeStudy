@@ -36,7 +36,8 @@ const Home = () => {
   };
 
   const clickLogout = () => {
-    const token = cookies.remove("webToken");
+    cookies.remove("webToken");
+    navigate("/user");
   };
 
   return (

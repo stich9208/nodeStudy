@@ -7,9 +7,11 @@ import { loginState } from "../recoil/selectors";
 const AuthRouter = ({ children }) => {
   const [refresh, setRefresh] = useRecoilState(refreshState);
   const isLogin = useRecoilValue(loginState);
+
   useEffect(() => {
     setRefresh(refresh + 1);
   }, []);
+
   return <>{!isLogin ? children : <Navigate to="/" />}</>;
 };
 
