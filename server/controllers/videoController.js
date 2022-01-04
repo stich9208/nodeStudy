@@ -1,5 +1,6 @@
 import Video from "../models/Video";
 import User from "../models/User";
+import Comment from "../models/Comment";
 
 //upload video
 export const uploadVideo = async (req, res) => {
@@ -36,7 +37,10 @@ export const readVideo = async (req, res) => {
 export const detailVideo = async (req, res) => {
   const { id } = req.params;
   try {
-    const video = await Video.findById(id);
+    const video = await Video.findById({ _id: id }).populate({
+      path: "comments",
+      populate: { path: "owner" },
+    });
     return res.send({ video });
   } catch (err) {
     console.log("detail video", err);
@@ -87,5 +91,24 @@ export const searchVideo = async (req, res) => {
     } catch (err) {
       console.log(err);
     }
+  }
+};
+
+//add comment
+export const addComment = async (req, res) => {
+  const { content, videoId, userId } = req.body;
+  try {
+    const newComment = await Comment.create({
+      text: content,
+      owner: userId,
+      video: videoId,
+    });
+    const video = await Video.findById({ _id: videoId });
+    video.comments.unshift(newComment._id);
+    video.save();
+    return res.status(200).send({ message: "success" });
+  } catch (err) {
+    console.log(err);
+    return res.status(404).send({ message: "fail" });
   }
 };

@@ -6,6 +6,7 @@ import {
   deleteVideo,
   readVideo,
   searchVideo,
+  addComment,
 } from "../controllers/videoController";
 import { authMiddleware } from "../middlewares/authMiddleware";
 
@@ -21,5 +22,6 @@ videoRouter.delete(
   deleteVideo
 );
 videoRouter.get("/search", searchVideo);
+videoRouter.post("/video/comment", authMiddleware, addComment);
 
 export default videoRouter;

@@ -10,26 +10,24 @@ const VideoDetail = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  const isLogin = useRecoilValue(loginState);
+  const userInfo = useRecoilValue(userInfoState);
   const [video, setVideo] = useState("");
   const [editVideo, setEditVideo] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [btnVisible, setBtnVisible] = useState(false);
-  const isLogin = useRecoilValue(loginState);
-  const userInfo = useRecoilValue(userInfoState);
+  const [commentList, setCommentList] = useState([]);
+  const [commentContent, setCommentContent] = useState("");
 
   useEffect(() => {
     fetch(`${API_URL}/video/${params.id}`)
       .then((res) => res.json())
       .then((res) => setVideo(res.video))
       .catch((err) => console.log(err));
-  }, [params.id]);
-
-  useEffect(() => {
-    isLogin ? setBtnVisible(true) : setBtnVisible(false);
-  }, [isLogin]);
+  }, []);
 
   useEffect(() => {
     setEditVideo(video);
+    setCommentList(video.comments);
   }, [video]);
 
   const onChangeFunc = (e) => {
@@ -73,7 +71,6 @@ const VideoDetail = () => {
               setIsEdit(false);
             }
             if (res.message === "login") {
-              // cookies.remove("webToken");
               alert("login please!");
               return navigate("/login");
             }
@@ -105,6 +102,37 @@ const VideoDetail = () => {
         throw new Error("deleted fail!");
       })
       .catch((err) => console.log(err));
+  };
+
+  const commentInputOnChange = (e) => {
+    const { value } = e.target;
+    setCommentContent(value);
+  };
+
+  const clickAddCommentBtn = async () => {
+    const newCommentList = commentList;
+    const newComment = {
+      owner: {
+        username: userInfo.username,
+      },
+      text: commentContent,
+    };
+    newCommentList.unshift(newComment);
+    setCommentList(newCommentList);
+    console.log(userInfo);
+
+    await fetch(`${API_URL}/video/comment`, {
+      method: "POST",
+      body: JSON.stringify({
+        content: commentContent,
+        videoId: video._id,
+        userId: userInfo._id,
+      }),
+      headers: { "Content-Type": "application/json" },
+    })
+      // .then((res) => res.json())
+      .then((res) => console.log(res));
+    setCommentContent("");
   };
 
   return (
@@ -160,19 +188,44 @@ const VideoDetail = () => {
           ) : (
             <>
               <button
-                style={{ display: btnVisible ? "block" : "none" }}
+                // style={{ display: btnVisible ? "block" : "none" }}
                 onClick={onEdit}
               >
                 Edit video
               </button>
               <button
-                style={{ display: btnVisible ? "block" : "none" }}
+                // style={{ display: btnVisible ? "block" : "none" }}
                 onClick={onDelete}
               >
                 Delete video
               </button>
             </>
           )
+        ) : (
+          ""
+        )}
+        {isLogin && commentList ? (
+          <>
+            <br />
+            <h1>Comment</h1>
+            <div>
+              <textarea
+                type="text"
+                value={commentContent}
+                onChange={commentInputOnChange}
+              />
+              <button onClick={clickAddCommentBtn}>add comment</button>
+            </div>
+            <ul>
+              {commentList.map((comment, idx) => {
+                return (
+                  <li key={idx}>
+                    {comment.owner.username} : {comment.text}
+                  </li>
+                );
+              })}
+            </ul>
+          </>
         ) : (
           ""
         )}

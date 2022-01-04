@@ -37,7 +37,7 @@ const Home = () => {
 
   const clickLogout = () => {
     cookies.remove("webToken");
-    navigate("/user");
+    navigate("/login");
   };
 
   return (
