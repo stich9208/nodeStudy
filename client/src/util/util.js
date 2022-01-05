@@ -31,3 +31,12 @@ export const checkAuth = () => {
     return false;
   }
 };
+
+const getElapsedTime = (createdTime) => {
+  const elapsedTime =
+    (Date.now() - new Date(createdTime).getTime()) / 60 / 60 / 1000;
+  const timeDesc =
+    elapsedTime < 24
+      ? `${Math.floor(elapsedTime)} 시간전`
+      : `${Math.floor(elapsedTime / 24)} 일전`;
+};

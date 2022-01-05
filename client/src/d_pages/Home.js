@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cookies } from "react-cookie";
 
+import TitleText from "../a_atom/TitleText";
+
 const Home = () => {
   const API_URL = process.env.REACT_APP_API_URL;
   const cookies = new Cookies();
@@ -49,10 +51,16 @@ const Home = () => {
       <button onClick={clickLogout}>logout</button>
       <ul>
         {videos.map((video) => {
+          const elapsedTime =
+            (Date.now() - new Date(video.createdAt).getTime()) / 60 / 60 / 1000;
+          const timeDesc =
+            elapsedTime < 24
+              ? `${Math.floor(elapsedTime)} 시간전`
+              : `${Math.floor(elapsedTime / 24)} 일전`;
           return (
             <li key={video._id} onClick={() => clickVideoItem(video._id)}>
-              <h3>{video.title}</h3>
-              <h5>{new Date(video.createdAt).toUTCString()}</h5>
+              <TitleText text={video.title} />
+              <h5>{timeDesc}</h5>
             </li>
           );
         })}
