@@ -68,13 +68,13 @@ const NavContainer = styled.div`
   height: 60px;
   padding-left: 15px;
   padding-right: 15px;
-  background-color: lightgrey;
+  background-color: #152c5d;
 `;
 
 const HomeLogo = styled.div`
   font-size: 15px;
   font-weight: bold;
-  color: black;
+  color: white;
   cursor: pointer;
 `;
 

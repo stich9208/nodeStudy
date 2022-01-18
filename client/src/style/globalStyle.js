@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
       *, *::before, *::after {
     box-sizing: border-box;
   }
+  body{
+    font-family:"Malgun Gothic", "Lucida Grande", Tahoma, Verdana, AppleGothic, UnDotum, sans-serif;
+  }
 `;
 
 export default GlobalStyle;

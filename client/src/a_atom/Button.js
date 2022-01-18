@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Button = ({ title, type, size, onClick, style }) => {
   return (
@@ -8,6 +8,16 @@ const Button = ({ title, type, size, onClick, style }) => {
     </ButtonContainer>
   );
 };
+
+const clickAnimation = keyframes`
+  0%{
+    transform:scale(1)
+  }50%{
+    transform:scale(0.9)
+  }100%{
+    transform:scale(1)
+  }
+`;
 
 const ButtonContainer = styled.button`
   display: flex;
@@ -25,11 +35,15 @@ const ButtonContainer = styled.button`
   font-size: ${(props) =>
     props.size === "big" ? "20px" : props.size === "medium" ? "18px" : "15px"};
   border: ${(props) =>
-    props.type === "primary" ? "solid 3px white" : "solid 3px #FECF47"};
+    props.type === "primary" ? "solid 3px white" : "solid 3px #809bce"};
   border-radius: 10px;
   background-color: ${(props) =>
-    props.type === "primary" ? "#FECF47" : "white"};
-  color: ${(props) => (props.type === "primary" ? "white" : "#FECF47")};
+    props.type === "primary" ? "#809bce" : "white"};
+  color: ${(props) => (props.type === "primary" ? "white" : "#809bce")};
   cursor: pointer;
+  :active {
+    animation: ${clickAnimation} 0.1s linear;
+  }
 `;
+
 export default Button;

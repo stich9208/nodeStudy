@@ -32,11 +32,19 @@ export const checkAuth = () => {
   }
 };
 
-const getElapsedTime = (createdTime) => {
+export const getElapsedTime = (createdTime) => {
+  const elapsedSecond = (Date.now() - new Date(createdTime).getTime()) / 1000;
+  const elapsedMinute =
+    (Date.now() - new Date(createdTime).getTime()) / 1000 / 60;
   const elapsedTime =
-    (Date.now() - new Date(createdTime).getTime()) / 60 / 60 / 1000;
+    (Date.now() - new Date(createdTime).getTime()) / 1000 / 60 / 60;
   const timeDesc =
-    elapsedTime < 24
+    elapsedSecond < 60
+      ? `${Math.floor(elapsedSecond)} 초전`
+      : elapsedMinute < 60
+      ? `${Math.floor(elapsedMinute)} 분전`
+      : elapsedTime < 24
       ? `${Math.floor(elapsedTime)} 시간전`
       : `${Math.floor(elapsedTime / 24)} 일전`;
+  return timeDesc;
 };

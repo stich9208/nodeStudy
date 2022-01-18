@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
+
+//components
 import { refreshState } from "../recoil/atoms";
 import { loginState } from "../recoil/selectors";
 import Input from "../a_atom/Input";
@@ -53,7 +56,7 @@ const Login = () => {
           type="email"
           name="email"
           placeholder="email"
-          size="big"
+          size="medium"
           onChange={inputChange}
           style={{ marginBottom: "20px" }}
         />
@@ -61,22 +64,26 @@ const Login = () => {
           type="password"
           name="password"
           placeholder="password"
-          size="big"
+          size="medium"
           onChange={inputChange}
           style={{ marginBottom: "20px" }}
         />
-        <Button title="login" size="big" onClick={loginBtnClick} />
+        <Button title="login" size="medium" onClick={loginBtnClick} />
       </LoginForm>
+      <Link to="/join">
+        <LinkText>JOIN US!</LinkText>
+      </Link>
     </LoginContainer>
   );
 };
 
 const LoginContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: black;
+  background-color: ${(props) => props.theme.color.background};
 `;
 
 const LoginForm = styled.form`
@@ -85,6 +92,13 @@ const LoginForm = styled.form`
   align-items: center;
   flex-direction: column;
   margin-top: 50px;
+`;
+
+const LinkText = styled.span`
+  display: flex;
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
 `;
 
 export default Login;

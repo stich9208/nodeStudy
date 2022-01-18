@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+import Input from "../a_atom/Input";
+import Button from "../a_atom/Button";
 
 const Join = () => {
   const API_URL = process.env.REACT_APP_API_URL;
@@ -62,29 +67,72 @@ const Join = () => {
   };
 
   return (
-    <>
-      <form style={{ marginTop: "50px" }}>
-        <div style={{ display: "flex" }}>
-          <div>email : </div>
-          <input type="email" name="email" onChange={inputChange} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <div>name : </div>
-          <input type="text" name="username" onChange={inputChange} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <div>password : </div>
-          <input type="password" name="password" onChange={inputChange} />
-        </div>
-        <div style={{ display: "flex" }}>
-          <div>password confirm : </div>
-          <input type="password" name="password2" onChange={inputChange} />
-        </div>
-        <button onClick={joinBtnClick}>JOIN</button>
-      </form>
-      <button onClick={() => navigate("/login")}>login</button>
-    </>
+    <JoinContainer>
+      <JoinForm method="POST">
+        <Input
+          type="email"
+          name="email"
+          placeholder="email"
+          size="medium"
+          onChange={inputChange}
+          style={{ marginBottom: "20px" }}
+        />
+        <Input
+          type="text"
+          name="username"
+          placeholder="user name"
+          size="medium"
+          onChange={inputChange}
+          style={{ marginBottom: "20px" }}
+        />
+
+        <Input
+          type="password"
+          name="password"
+          placeholder="password"
+          size="medium"
+          onChange={inputChange}
+          style={{ marginBottom: "20px" }}
+        />
+        <Input
+          type="password"
+          name="password2"
+          placeholder="password confirm"
+          size="medium"
+          onChange={inputChange}
+          style={{ marginBottom: "20px" }}
+        />
+        <Button title="join" size="medium" onClick={joinBtnClick} />
+      </JoinForm>
+      <Link to="/login">
+        <LinkText>GO TO LOGIN</LinkText>
+      </Link>
+    </JoinContainer>
   );
 };
+
+const JoinContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: ${(props) => props.theme.color.background};
+`;
+
+const JoinForm = styled.form`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+`;
+
+const LinkText = styled.span`
+  display: flex;
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+`;
 
 export default Join;

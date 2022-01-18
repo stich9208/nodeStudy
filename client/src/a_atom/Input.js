@@ -26,7 +26,7 @@ const InputContainer = styled.input`
     props.size === "big" ? "40px" : props.size === "medium" ? "35px" : "30px"};
   padding-left: 8px;
   font-size: 18px;
-  border: 3px solid #fecf47;
+  border: 3px solid #809bce;
   border-radius: 10px;
   outline: none;
   box-sizing: border-box;
