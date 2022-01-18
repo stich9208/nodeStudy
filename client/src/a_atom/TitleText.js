@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const TitleText = ({ text }) => {
-  return <Title>{text}</Title>;
+const TitleText = ({ children }) => {
+  return <Title>{children}</Title>;
 };
 
 const Title = styled.span`

@@ -6,6 +6,7 @@ import { Cookies } from "react-cookie";
 import { getElapsedTime } from "../util/util";
 
 import TitleText from "../a_atom/TitleText";
+import SubTitleText from "../a_atom/SubTitleText";
 
 const Home = () => {
   const API_URL = process.env.REACT_APP_API_URL;
@@ -19,10 +20,6 @@ const Home = () => {
       .then((res) => setVideos(res.videos))
       .catch((err) => console.log("fetch error!", err));
   }, []);
-
-  const clickUpload = () => {
-    navigate("/video/upload");
-  };
 
   const clickJoin = () => {
     navigate("/join");
@@ -47,28 +44,60 @@ const Home = () => {
 
   return (
     <HomeContainer>
-      <button onClick={clickUpload}>upload</button>
       <button onClick={clickJoin}>join</button>
       <button onClick={clickLogin}>login</button>
       <button onClick={clickuser}>user</button>
       <button onClick={clickLogout}>logout</button>
-      <ul>
+      <VideoListContainer>
         {videos.map((video) => {
           return (
-            <li key={video._id} onClick={() => clickVideoItem(video._id)}>
-              <TitleText text={video.title} />
-              <h5>{getElapsedTime(video.createdAt)}</h5>
-            </li>
+            <EachVideo
+              key={video._id}
+              onClick={() => clickVideoItem(video._id)}
+            >
+              <div
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  backgroundColor: "skyblue",
+                  borderRadius: "15px",
+                  marginBottom: "7px",
+                }}
+              ></div>
+              <VideoInfo>
+                <TitleText>{video.title}</TitleText>
+                <SubTitleText>{getElapsedTime(video.createdAt)}</SubTitleText>
+              </VideoInfo>
+            </EachVideo>
           );
         })}
-      </ul>
+      </VideoListContainer>
     </HomeContainer>
   );
 };
 
 const HomeContainer = styled.div`
-  height: 100vh;
+  height: calc(100vh - 60px);
+  padding: 20px;
   background-color: ${(props) => props.theme.color.background};
+`;
+
+const VideoListContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 15px;
+`;
+
+const EachVideo = styled.div`
+  height: 100%;
+  cursor: pointer;
+`;
+
+const VideoInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 `;
 
 export default Home;

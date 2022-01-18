@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVideo } from "@fortawesome/free-solid-svg-icons";
 
 import { useRecoilValue } from "recoil";
 import { loginState } from "../recoil/selectors";
@@ -38,18 +40,24 @@ const Nav = () => {
             name="keyword"
             placeholder="Search"
             onChange={onChangeFunc}
+            style={{ marginRight: "10px " }}
           />
-          <Button title="search" type="primary" onClick={onSearch} />
+          <Button
+            title="SEARCH"
+            size="small"
+            type="primary"
+            onClick={onSearch}
+          />
         </SearchForm>
+        <UploadButton onClick={() => navigate("video/upload")}>
+          <Button title="UPLOAD" size="medium">
+            <FontAwesomeIcon icon={faVideo} style={{ marginLeft: "5px" }} />
+          </Button>
+        </UploadButton>
         {isLogin ? (
-          <div
+          <ProfileImage
+            src="/images/profile.png"
             onClick={() => navigate("user")}
-            style={{
-              width: "20px",
-              height: "20px",
-              backgroundColor: "red",
-              cursor: "pointer",
-            }}
           />
         ) : (
           ""
@@ -81,6 +89,21 @@ const HomeLogo = styled.div`
 const SearchForm = styled.form`
   display: flex;
   align-items: center;
+`;
+
+const ProfileImage = styled.img`
+  width: 35px;
+  height: 35px;
+  border: 3px solid #809bce;
+  border-radius: 50px;
+  cursor: pointer;
+`;
+
+const UploadButton = styled.div`
+  position: absolute;
+  right: 100px;
+  color: white;
+  cursor: pointer;
 `;
 
 export default Nav;
