@@ -15,8 +15,16 @@ import VideoUpload from "./d_pages/VideoUpload";
 import ChangePassword from "./d_pages/ChangePassword";
 import NotFound from "./d_pages/NotFound";
 
+import { S3Client } from "aws-sdk";
+import { PutBucketCorsCommand } from "@aws-sdk/client-s3";
+
 const RootRouter = () => {
   dotenv.config();
+
+  const REGION = "kr-standard";
+  const BUCKET_NAME = "toyproject";
+
+  const s3Client = new S3Client({ region: REGION });
 
   return (
     <BrowserRouter>

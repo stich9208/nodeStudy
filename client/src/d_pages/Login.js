@@ -68,7 +68,7 @@ const Login = () => {
           onChange={inputChange}
           style={{ marginBottom: "20px" }}
         />
-        <Button title="login" size="medium" onClick={loginBtnClick} />
+        <Button title="LOGIN" size="medium" onClick={loginBtnClick} />
       </LoginForm>
       <Link to="/join">
         <LinkText>JOIN US!</LinkText>

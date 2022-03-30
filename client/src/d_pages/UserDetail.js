@@ -112,7 +112,7 @@ const UserDetail = () => {
           <button onClick={clickEditBtn}>EDIT</button>
         )}
       </form>
-      <button onClick={clickChangePwd}>CHANGE PPASSWORD</button>
+      <button onClick={clickChangePwd}>CHANGE PASSWORD</button>
 
       <ul>
         {userVideos.map((video) => {

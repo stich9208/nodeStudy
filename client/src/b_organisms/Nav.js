@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import { faVideo, faHome } from "@fortawesome/free-solid-svg-icons";
 
 import { useRecoilValue } from "recoil";
 import { loginState } from "../recoil/selectors";
@@ -32,36 +32,44 @@ const Nav = () => {
   return (
     <>
       <NavContainer style={{ display: "flex" }}>
-        <HomeLogo onClick={clickHome}>HOME</HomeLogo>
+        <HomeButton onClick={clickHome}>
+          <Button title="HOME" size="medium">
+            <FontAwesomeIcon icon={faHome} style={{ marginLeft: "5px" }} />
+          </Button>
+        </HomeButton>
         <SearchForm>
           <Input
             type="text"
             value={searchKey}
             name="keyword"
             placeholder="Search"
+            size="medium"
             onChange={onChangeFunc}
             style={{ marginRight: "10px " }}
           />
           <Button
             title="SEARCH"
-            size="small"
+            size="medium"
             type="primary"
             onClick={onSearch}
           />
         </SearchForm>
-        <UploadButton onClick={() => navigate("video/upload")}>
-          <Button title="UPLOAD" size="medium">
-            <FontAwesomeIcon icon={faVideo} style={{ marginLeft: "5px" }} />
-          </Button>
-        </UploadButton>
-        {isLogin ? (
-          <ProfileImage
-            src="/images/profile.png"
-            onClick={() => navigate("user")}
-          />
-        ) : (
-          ""
-        )}
+
+        <UploadAndProfileColumn>
+          <UploadButton onClick={() => navigate("video/upload")}>
+            <Button title="UPLOAD" size="medium">
+              <FontAwesomeIcon icon={faVideo} style={{ marginLeft: "5px" }} />
+            </Button>
+          </UploadButton>
+          {isLogin ? (
+            <ProfileImage
+              src="/images/profile.png"
+              onClick={() => navigate("user")}
+            />
+          ) : (
+            ""
+          )}
+        </UploadAndProfileColumn>
       </NavContainer>
       <Outlet />
     </>
@@ -70,7 +78,6 @@ const Nav = () => {
 
 const NavContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 60px;
@@ -79,7 +86,9 @@ const NavContainer = styled.div`
   background-color: #152c5d;
 `;
 
-const HomeLogo = styled.div`
+const HomeButton = styled.div`
+  position: absolute;
+  left: 10px;
   font-size: 15px;
   font-weight: bold;
   color: white;
@@ -88,7 +97,16 @@ const HomeLogo = styled.div`
 
 const SearchForm = styled.form`
   display: flex;
+  position: absolute;
+  left: calc(50% - 190px);
+  width: 10%;
   align-items: center;
+`;
+
+const UploadAndProfileColumn = styled.div`
+  display: flex;
+  position: absolute;
+  right: 10px;
 `;
 
 const ProfileImage = styled.img`
@@ -100,8 +118,7 @@ const ProfileImage = styled.img`
 `;
 
 const UploadButton = styled.div`
-  position: absolute;
-  right: 100px;
+  margin-right: 20px;
   color: white;
   cursor: pointer;
 `;

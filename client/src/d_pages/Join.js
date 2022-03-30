@@ -102,7 +102,7 @@ const Join = () => {
           onChange={inputChange}
           style={{ marginBottom: "20px" }}
         />
-        <Button title="join" size="medium" onClick={joinBtnClick} />
+        <Button title="JOIN" size="medium" onClick={joinBtnClick} />
       </JoinForm>
       <Link to="/login">
         <LinkText>GO TO LOGIN</LinkText>

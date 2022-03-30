@@ -24,14 +24,10 @@ const ButtonContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${(props) =>
-    props.size === "big"
-      ? "200px"
-      : props.size === "medium"
-      ? "120px"
-      : "70px"};
+  width: 100%;
   height: ${(props) =>
     props.size === "big" ? "40px" : props.size === "medium" ? "35px" : "27px"};
+  padding: 0px 10px 0px 10px;
   font-weight: bold;
   font-size: ${(props) =>
     props.size === "big" ? "20px" : props.size === "medium" ? "15px" : "12px"};
