@@ -1,5 +1,7 @@
 # Node.JS 스터디 with youtube clone
 
+## backend
+
 ### 2021.11.27
 
 - 프로젝트 환경설정 (`babel`, `nodemon`... )
@@ -69,3 +71,8 @@
 ### 2022.04.01
 
 - front / back 코드 분리
+
+### 2022.04.05
+
+- ncloud storage 연동 완료
+- 영상업로드시 storage에 저장
