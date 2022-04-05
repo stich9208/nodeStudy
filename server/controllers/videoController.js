@@ -2,22 +2,26 @@ import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
 
+import { uploadVideoToStorage } from "../storage";
+
 //upload video
 export const uploadVideo = async (req, res) => {
-  const { title, description, hashtags } = req.body.uploadFeild;
-  const { id } = req.body;
+  const { title, description, hashtags, id } = req.body;
+  const videoFile = req.file;
   try {
-    const newVideo = await Video.create({
-      title,
-      description,
-      hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
-      owner: id,
-    });
-    const user = await User.findById({ _id: id });
-    user.videos.push(newVideo._id);
-    user.save();
+    // const newVideo = await Video.create({
+    //   title,
+    //   description,
+    //   hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
+    //   owner: id,
+    // });
+    // const user = await User.findById({ _id: id });
+    // user.videos.push(newVideo._id);
+    // user.save();
+    console.log(videoFile);
+    uploadVideoToStorage(videoFile.buffer, title);
   } catch (err) {
-    console.log("upload video", err);
+    console.log("upload video error", err);
     return res.status(404).send({ message: "can`t upload video" });
   }
   return res.send({ message: "success" });
