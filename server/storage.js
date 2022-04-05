@@ -52,6 +52,7 @@ export const uploadVideoToStorage = async (file, fileName) => {
   await S3.putObject({
     Bucket: bucket_name,
     Key: videoName,
+    ACL: "public-read",
     Body: file,
   }).promise();
 };

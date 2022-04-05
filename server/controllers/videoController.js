@@ -1,25 +1,34 @@
 import Video from "../models/Video";
 import User from "../models/User";
 import Comment from "../models/Comment";
+import dotenv from "dotenv";
 
 import { uploadVideoToStorage } from "../storage";
+import { getFileExtension } from "../util";
+
+dotenv.config();
 
 //upload video
 export const uploadVideo = async (req, res) => {
   const { title, description, hashtags, id } = req.body;
   const videoFile = req.file;
+  const fileExtension = getFileExtension(videoFile.originalname).toLowerCase();
+  const url = `${process.env.END_POINT}/${
+    process.env.BUCKET_NAME
+  }/video/${encodeURIComponent(title)}.${fileExtension}`;
+
   try {
-    // const newVideo = await Video.create({
-    //   title,
-    //   description,
-    //   hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
-    //   owner: id,
-    // });
-    // const user = await User.findById({ _id: id });
-    // user.videos.push(newVideo._id);
-    // user.save();
-    console.log(videoFile);
-    uploadVideoToStorage(videoFile.buffer, title);
+    await uploadVideoToStorage(videoFile.buffer, title + "." + fileExtension);
+    const newVideo = await Video.create({
+      title,
+      description,
+      hashtags: hashtags.split(",").map((tag) => `#${tag.trim()}`),
+      owner: id,
+      url,
+    });
+    const user = await User.findById({ _id: id });
+    user.videos.push(newVideo._id);
+    user.save();
   } catch (err) {
     console.log("upload video error", err);
     return res.status(404).send({ message: "can`t upload video" });
