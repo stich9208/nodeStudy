@@ -50,10 +50,14 @@ export const readVideo = async (req, res) => {
 export const detailVideo = async (req, res) => {
   const { id } = req.params;
   try {
-    const video = await Video.findById({ _id: id }).populate({
-      path: "comments",
-      populate: { path: "owner" },
-    });
+    const video = await Video.findById({ _id: id })
+      .populate({
+        path: "comments",
+        populate: { path: "owner" },
+      })
+      .populate({
+        path: "owner",
+      });
     return res.send({ video });
   } catch (err) {
     console.log("detail video", err);
